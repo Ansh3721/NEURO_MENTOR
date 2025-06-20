@@ -1,0 +1,30 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-3">
+    <div class="col-8 offset-3">
+        <body>
+    <h3>Student details:</h3>
+</div>
+    <div class="card col-6 offset-3 show-card">
+        <img src="<%= listing.image.url %>" alt="image" class="card-img-top show-img profile-photo">
+        <div class="card-body">
+            <div class="card-text">
+                <p>
+                   <b> Name : </b><%=listing.name %><br>
+                    <b> Email : </b><%= listing.email %> <br>
+                    <b> Family Background : </b> <%= listing.family_background %> <br>
+                    <b> Skills : </b><%= listing.skills %> <br>
+                    <b> Challanges : </b><%= listing.challanges %> <br>
+                    <b> Goals : </b><%= listing.goals %> <br>
+                    <b> Higher Studies : </b><%= listing.higher_studies %>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="btns mb-3">
+        <a href="/listing/<%= listing._id %>/edit" class="btn btn-dark  col-1 offset-3 add-btn">Edit</a>
+        <form action="/listings/<%=listing._id %>?_method=DELETE" method="post">
+            <button class="btn btn-dark offset-5"> Delete</button>
+        </form>
+    </div>
+</div>
