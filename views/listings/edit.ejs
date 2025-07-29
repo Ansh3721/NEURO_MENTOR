@@ -28,8 +28,8 @@
             </div>
 
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="listing[skills]" id="radio1" value="Digital literacy">
-              <label class="form-check-label" for="radio1">Programming and Coding</label>
+              <input class="form-check-input" type="radio" name="listing[skills]" id="radio2" value="Programming and Coding">
+              <label class="form-check-label" for="radio2">Programming and Coding</label>
             </div>
             
 
@@ -65,8 +65,11 @@
             <div class="invalid-feedback">required</div>
         </div>
         <div class="mb-3">
+           <img src="<%= listing.image.url%>" class="img-fluid img-thumbnail" style="width: 200px; height: 250px;">
+        </div>
+        <div class="mb-3">
             <label for="image" class="form-lable">Image</label>
-            <input type="file" name="listing[image]" class="form-control" value="<%= listing.image %> " required>
+            <input type="file" name="listing[image]" class="form-control" value="<%= listing.image %> " >
         </div>
         <button class="btn btn-dark mb-3 add-btn">Edit</button>
     </form>

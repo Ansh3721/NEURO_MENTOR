@@ -1,9 +1,9 @@
 <% layout("/layouts/boilerplate") %>
 <div class="row">
-<div class="col-8 offset-2">
+<div class="col-6 offset-3">
 <body><br>
     <h3>Add new Student</h3><br>
-    <form action="/listing" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+    <form action="/listings" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="email" class="form-lable">Email</label>
             <input type="text" name = listing[email] class="form-control" required>
@@ -65,9 +65,8 @@
         </div>
         <div class="mb-3">
             <label for="image" class="form-lable">Image link</label>
-            <input type="file" name="listing[image]" class="form-control">
+            <input type="file" name="listing[image]" class="form-control" >
         </div>
-
         <button class="btn btn-dark mb-3 add-btn">Add</button>
     </form>
 </body>
