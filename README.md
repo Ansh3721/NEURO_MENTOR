@@ -35,7 +35,8 @@
 
 ---
 
-## 📸 Screenshots
+## 📸 Video demo :
+https://www.linkedin.com/feed/update/urn:li:activity:7356280463709143041/
 
 ---
 
