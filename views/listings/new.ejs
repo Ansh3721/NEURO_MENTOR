@@ -1,74 +1,366 @@
 <% layout("/layouts/boilerplate") %>
-<div class="row">
-<div class="col-6 offset-3">
-<body><br>
-    <h3>Add new Student</h3><br>
-    <form action="/listings" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="email" class="form-lable">Email</label>
-            <input type="text" name = listing[email] class="form-control" required>
-            <div class="invalid-feedback">Email required</div>
-        </div>
-        <div class="mb-3">
-            <label for="name" class="form-lable">Enter Name</label>
-            <input type="text" name = listing[name] class="form-control" required>
-            <div class="invalid-feedback">name required</div>
-        </div>
-        <div class="mb-3">
-            <label for="family_background" class="form-lable">Family Background <br>(total family members and occupation of parents etc..)</label>
-            <textarea name="listing[family_background]" class="form-control" required></textarea>
-            <div class="invalid-feedback">required</div>
-        </div>
-        <div class="mb-3 col-md-8">
-            <label for="skills" class="form-label">You are good in (skills)</label>
+<div class="row justify-content-center py-4">
+  <div class="col-12 col-xl-10">
+    <div class="educator-form-shell">
+      <div class="educator-form-header">
+        <p class="eyebrow mb-2">Educator onboarding</p>
+        <h1 class="h2 mb-2">Create a trusted educator profile</h1>
+        <p class="text-muted mb-0">Keep the flow lightweight for MVP, while giving students enough information to trust the educator before they book.</p>
+      </div>
 
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="listing[skills]" id="radio1" value="Digital literacy">
-              <label class="form-check-label" for="radio1">Digital literacy</label>
+      <div class="stepper mb-4" aria-label="Registration progress">
+        <div class="stepper-track">
+          <div class="stepper-progress" data-progress-bar></div>
+        </div>
+        <div class="stepper-labels">
+          <span class="step-pill is-active" data-step-pill="1">1. Basics</span>
+          <span class="step-pill" data-step-pill="2">2. Type</span>
+          <span class="step-pill" data-step-pill="3">3. Expertise</span>
+          <span class="step-pill" data-step-pill="4">4. Trust</span>
+          <span class="step-pill" data-step-pill="5">5. Review</span>
+        </div>
+        <p class="stepper-caption mb-0" data-step-caption>Step 1 of 5</p>
+      </div>
+
+      <form action="/listings" method="post" novalidate class="needs-validation educator-form" enctype="multipart/form-data" id="educatorRegistrationForm" data-draft-key="educator-registration-draft">
+        <div class="draft-banner mb-4">
+          <div>
+            <strong>Draft-friendly:</strong> the form auto-saves in this browser.
+          </div>
+          <div class="draft-actions">
+            <button type="button" class="btn btn-outline-dark btn-sm" data-save-draft>Save draft</button>
+            <button type="button" class="btn btn-link btn-sm text-decoration-none px-0" data-clear-draft>Clear draft</button>
+          </div>
+        </div>
+
+        <section class="step-pane is-active" data-step="1">
+          <div class="section-card">
+            <div class="section-heading">
+              <p class="eyebrow mb-1">Section 1</p>
+              <h2 class="h4 mb-0">Basic information</h2>
             </div>
 
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="listing[skills]" id="radio1" value="Programming and Coding">
-              <label class="form-check-label" for="radio1">Programming and Coding</label>
+            <div class="mb-3">
+              <label for="educator-name" class="form-label">Full name</label>
+              <input type="text" id="educator-name" name="listing[name]" class="form-control" placeholder="Enter your full name" required minlength="2" maxlength="80">
+              <div class="form-text">We ask for the real name so students know who they are learning from.</div>
+              <div class="invalid-feedback">Please enter your full name.</div>
             </div>
 
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="listing[skills]" id="radio3" value="Music and Performance">
-              <label class="form-check-label" for="radio3">Music and Performance</label>
+            <div class="mb-3">
+              <label for="educator-photo" class="form-label">Profile photo</label>
+              <input type="file" id="educator-photo" name="listing[image]" class="form-control" accept="image/png,image/jpeg,image/jpg" required>
+              <div class="form-text">Profiles with a face photo are usually trusted more than anonymous profiles.</div>
+              <div class="invalid-feedback">Please upload a clear profile photo.</div>
             </div>
 
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="listing[skills]" id="radio4" value="Adaptability and resilience">
-              <label class="form-check-label" for="radio4">Adaptability and resilience</label>
+            <div class="mb-3">
+              <label for="educator-bio" class="form-label">Short bio</label>
+              <textarea id="educator-bio" name="listing[bio]" class="form-control" placeholder="Write 100-200 words about your background, teaching style, and strengths" rows="5" required minlength="100" maxlength="2000"></textarea>
+              <div class="form-text">This helps students understand your background and teaching approach before they contact you.</div>
+              <div class="invalid-feedback">Write a short bio of at least 100 characters.</div>
             </div>
 
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="listing[skills]" id="radio5" value="Time management and organization">
-              <label class="form-check-label" for="radio5">Time management and organization</label>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="educator-location" class="form-label">Location</label>
+                <input type="text" id="educator-location" name="listing[location]" class="form-control" placeholder="City, State" required maxlength="80">
+                <div class="form-text">Students can quickly see your region and whether your language or accent fits their preference.</div>
+                <div class="invalid-feedback">Please enter your city and state.</div>
+              </div>
+              <div class="col-md-6">
+                <label for="educator-languages" class="form-label">Languages known</label>
+                <input type="text" id="educator-languages" name="listing[languages]" class="form-control" placeholder="English, Hindi, Marathi" required maxlength="120">
+                <div class="form-text">This helps students find educators who can teach in the language they are most comfortable with.</div>
+                <div class="invalid-feedback">Please list at least one language.</div>
+              </div>
             </div>
-        </div>
+          </div>
+        </section>
 
-        <div class="mb-3">
-            <label for="challanges" class="form-lable">challanges</label>
-            <textarea name="listing[challanges]" class="form-control" required></textarea>
-            <div class="invalid-feedback">required</div>
+        <section class="step-pane" data-step="2" hidden>
+          <div class="section-card">
+            <div class="section-heading">
+              <p class="eyebrow mb-1">Section 2</p>
+              <h2 class="h4 mb-0">Educator type</h2>
+            </div>
+
+            <fieldset class="mb-3">
+              <legend class="form-label mb-2">Are you a student or a professional?</legend>
+              <div class="choice-grid">
+                <label class="choice-card">
+                  <input type="radio" name="listing[educatorType]" value="Student" required>
+                  <span>
+                    <strong>Student</strong>
+                    <small>Share academic credentials and subject marks.</small>
+                  </span>
+                </label>
+                <label class="choice-card">
+                  <input type="radio" name="listing[educatorType]" value="Professional" required>
+                  <span>
+                    <strong>Professional</strong>
+                    <small>Share job experience and company credibility.</small>
+                  </span>
+                </label>
+              </div>
+              <div class="form-text">This keeps credibility questions relevant without forcing every educator through the same template.</div>
+              <div class="invalid-feedback d-block" data-type-error hidden>Please choose whether you are a student or a professional.</div>
+            </fieldset>
+
+            <div class="conditional-panel" data-educator-section="student" hidden>
+              <h3 class="h5">Student educator details</h3>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="student-degree" class="form-label">Current degree</label>
+                  <input type="text" id="student-degree" name="listing[studentDetails][degree]" class="form-control" placeholder="B.Tech in Computer Science" data-conditional-input>
+                  <div class="form-text">Shows the academic background students can rely on.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="student-college" class="form-label">College / university</label>
+                  <input type="text" id="student-college" name="listing[studentDetails][college]" class="form-control" placeholder="Your college or university" data-conditional-input>
+                  <div class="form-text">Students trust profiles more when they can verify the institution.</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="student-year" class="form-label">Current year / semester</label>
+                  <input type="text" id="student-year" name="listing[studentDetails][yearSemester]" class="form-control" placeholder="3rd year, 6th semester" data-conditional-input>
+                  <div class="form-text">Helps students understand your academic level.</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="student-cgpa" class="form-label">CGPA / pointer</label>
+                  <input type="text" id="student-cgpa" name="listing[studentDetails][cgpaPointer]" class="form-control" placeholder="8.6 CGPA" data-conditional-input>
+                  <div class="form-text">Gives a quick signal of academic performance.</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="student-marks" class="form-label">Marks / grade in teachable subjects</label>
+                  <textarea id="student-marks" name="listing[studentDetails][subjectGrades]" class="form-control" rows="3" placeholder="Data Structures - A+\nDBMS - A\nMathematics - 92%" data-conditional-input></textarea>
+                  <div class="form-text">Students want proof that you performed well in the exact subject you want to teach.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="conditional-panel" data-educator-section="professional" hidden>
+              <h3 class="h5">Professional educator details</h3>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="professional-role" class="form-label">Current job role</label>
+                  <input type="text" id="professional-role" name="listing[professionalDetails][jobRole]" class="form-control" placeholder="Software Engineer, Data Analyst, Mentor" data-conditional-input>
+                  <div class="form-text">Industry role gives students a fast credibility signal.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="professional-company" class="form-label">Current company</label>
+                  <input type="text" id="professional-company" name="listing[professionalDetails][companyName]" class="form-control" placeholder="Company name" data-conditional-input>
+                  <div class="form-text">Students are more confident when they can see where you work.</div>
+                </div>
+                <div class="col-md-4">
+                  <label for="professional-experience" class="form-label">Years of experience</label>
+                  <input type="number" id="professional-experience" name="listing[professionalDetails][yearsExperience]" class="form-control" placeholder="3" min="0" max="60" step="0.5" data-conditional-input>
+                  <div class="form-text">Practical experience helps students judge how much real-world context you can bring.</div>
+                </div>
+                <div class="col-md-8">
+                  <label for="professional-previous" class="form-label">Previous experience</label>
+                  <textarea id="professional-previous" name="listing[professionalDetails][previousExperience]" class="form-control" rows="3" placeholder="Optional: past roles, freelance work, mentoring, or projects" data-conditional-input></textarea>
+                  <div class="form-text">Extra context is optional, but it can strengthen trust quickly.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step-pane" data-step="3" hidden>
+          <div class="section-card">
+            <div class="section-heading d-flex justify-content-between align-items-start gap-3 flex-wrap">
+              <div>
+                <p class="eyebrow mb-1">Section 4</p>
+                <h2 class="h4 mb-0">Subject expertise</h2>
+              </div>
+              <button type="button" class="btn btn-outline-dark btn-sm" data-add-subject>Add another subject</button>
+            </div>
+
+            <p class="section-note">Allow one or multiple subjects. Each subject needs a name and a skill level so students can match your teaching depth to their learning stage.</p>
+
+            <div class="subjects-list" data-subjects-list></div>
+            <template id="subject-row-template">
+              <div class="subject-row card-lite" data-subject-row>
+                <div class="row g-3 align-items-end">
+                  <div class="col-md-7">
+                    <label class="form-label">Subject name</label>
+                    <input type="text" class="form-control" name="listing[subjects][__INDEX__][name]" placeholder="Data Structures" required data-subject-name>
+                    <div class="form-text">Students search by subject first, so clear naming improves discoverability.</div>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Skill level</label>
+                    <select class="form-select" name="listing[subjects][__INDEX__][level]" required data-subject-level>
+                      <option value="" selected disabled>Select level</option>
+                      <option value="Beginner">Beginner</option>
+                      <option value="Intermediate">Intermediate</option>
+                      <option value="Advanced">Advanced</option>
+                    </select>
+                    <div class="form-text">This tells students which learning stage you can support best.</div>
+                  </div>
+                  <div class="col-md-1 text-md-end">
+                    <button type="button" class="btn btn-link text-danger px-0" data-remove-subject aria-label="Remove subject">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </section>
+
+        <section class="step-pane" data-step="4" hidden>
+          <div class="section-card">
+            <div class="section-heading">
+              <p class="eyebrow mb-1">Sections 5-8</p>
+              <h2 class="h4 mb-0">Trust, availability, and pricing</h2>
+            </div>
+
+            <div class="mb-4">
+              <h3 class="h5">Social profiles</h3>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="linkedin-profile" class="form-label">LinkedIn profile</label>
+                  <input type="url" id="linkedin-profile" name="listing[socialProfiles][linkedin]" class="form-control" placeholder="https://www.linkedin.com/in/your-name" required>
+                  <div class="form-text">LinkedIn is a quick professional credibility check for students.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="github-profile" class="form-label">GitHub profile</label>
+                  <input type="url" id="github-profile" name="listing[socialProfiles][github]" class="form-control" placeholder="https://github.com/your-handle">
+                  <div class="form-text">Optional, but useful if you teach technical subjects and want to show real work.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="instagram-profile" class="form-label">Instagram profile</label>
+                  <input type="url" id="instagram-profile" name="listing[socialProfiles][instagram]" class="form-control" placeholder="https://instagram.com/your-handle">
+                  <div class="form-text">Optional social proof for students who prefer a more familiar profile.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="portfolio-website" class="form-label">Portfolio website</label>
+                  <input type="url" id="portfolio-website" name="listing[socialProfiles][portfolio]" class="form-control" placeholder="https://yourportfolio.com">
+                  <div class="form-text">A portfolio gives students another way to verify your work and experience.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <h3 class="h5">Availability</h3>
+              <div class="mb-3">
+                <label class="form-label">Available days</label>
+                <div class="availability-grid">
+                  <label class="availability-chip"><input type="checkbox" name="listing[availability][days][]" value="Monday"> Monday</label>
+                  <label class="availability-chip"><input type="checkbox" name="listing[availability][days][]" value="Tuesday"> Tuesday</label>
+                  <label class="availability-chip"><input type="checkbox" name="listing[availability][days][]" value="Wednesday"> Wednesday</label>
+                  <label class="availability-chip"><input type="checkbox" name="listing[availability][days][]" value="Thursday"> Thursday</label>
+                  <label class="availability-chip"><input type="checkbox" name="listing[availability][days][]" value="Friday"> Friday</label>
+                  <label class="availability-chip"><input type="checkbox" name="listing[availability][days][]" value="Saturday"> Saturday</label>
+                  <label class="availability-chip"><input type="checkbox" name="listing[availability][days][]" value="Sunday"> Sunday</label>
+                </div>
+                <div class="form-text">Students should know your available days before they reach out.</div>
+              </div>
+              <div class="mb-3">
+                <label for="available-slots" class="form-label">Available time slots</label>
+                <input type="text" id="available-slots" name="listing[availability][timeSlots]" class="form-control" placeholder="6-8 PM, 8-10 PM" required>
+                <div class="form-text">A simple time range is enough for MVP and avoids forcing a complicated calendar setup.</div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <h3 class="h5">Pricing</h3>
+              <div class="pricing-card">
+                <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-2">
+                  <div>
+                    <label for="hourly-rate" class="form-label mb-1">Hourly rate</label>
+                    <div class="pricing-value" data-pricing-value>₹100/hr</div>
+                  </div>
+                  <span class="pricing-badge">Trusted pricing bands</span>
+                </div>
+                <input type="range" class="form-range" min="50" max="1000" step="50" value="100" id="hourly-rate" name="listing[pricing]" list="pricing-options" required>
+                <datalist id="pricing-options">
+                  <option value="50"></option>
+                  <option value="100"></option>
+                  <option value="150"></option>
+                  <option value="200"></option>
+                  <option value="300"></option>
+                  <option value="500"></option>
+                  <option value="750"></option>
+                  <option value="1000"></option>
+                </datalist>
+                <div class="form-text">Using standard price bands keeps pricing realistic and easier for students to compare.</div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="h5">Identity verification</h3>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="government-id-type" class="form-label">Government ID type</label>
+                  <select id="government-id-type" name="listing[identityVerification][idType]" class="form-select" required>
+                    <option value="" selected disabled>Select ID type</option>
+                    <option value="Aadhaar">Aadhaar</option>
+                    <option value="PAN">PAN</option>
+                    <option value="Passport">Passport</option>
+                    <option value="Driving License">Driving License</option>
+                  </select>
+                  <div class="form-text">Identity checks reduce fake educator accounts and improve student trust.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="government-id-upload" class="form-label">Upload government ID</label>
+                  <input type="file" id="government-id-upload" name="listing[governmentId]" class="form-control" accept="image/png,image/jpeg,image/jpg" required>
+                  <div class="form-text">Uploaded IDs stay private and are used for admin review only.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step-pane" data-step="5" hidden>
+          <div class="section-card">
+            <div class="section-heading">
+              <p class="eyebrow mb-1">Section 9</p>
+              <h2 class="h4 mb-0">Agreements and review</h2>
+            </div>
+
+            <div class="mb-4">
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="confirm-accuracy" name="listing[agreements][confirmAccuracy]" value="true" required>
+                <label class="form-check-label" for="confirm-accuracy">I confirm that all information provided is accurate.</label>
+                <div class="form-text">This creates accountability and reduces profile fraud.</div>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="accept-terms" name="listing[agreements][acceptTerms]" value="true" required>
+                <label class="form-check-label" for="accept-terms">I agree to Engineerify's Terms and Conditions.</label>
+                <div class="form-text">A clear agreement gives the platform legal protection and sets expectations.</div>
+              </div>
+            </div>
+
+            <div class="generated-panel mb-4">
+              <div class="section-heading mb-3">
+                <p class="eyebrow mb-1">Section 10</p>
+                <h3 class="h5 mb-0">System-generated trust metrics</h3>
+              </div>
+              <p class="section-note">These fields are generated automatically after learners interact with your profile. They are not part of the form.</p>
+              <div class="metrics-grid">
+                <div class="metric-card"><span>Average rating</span><strong>Auto-generated</strong></div>
+                <div class="metric-card"><span>Total reviews</span><strong>Auto-generated</strong></div>
+                <div class="metric-card"><span>Total students taught</span><strong>Auto-generated</strong></div>
+                <div class="metric-card"><span>Total sessions conducted</span><strong>Auto-generated</strong></div>
+                <div class="metric-card"><span>Verified educator badge</span><strong>Admin approved</strong></div>
+              </div>
+            </div>
+
+            <div class="review-panel">
+              <h3 class="h5 mb-2">Before you submit</h3>
+              <p class="mb-0">Double-check that your profile reflects the real credentials students need to trust you quickly. You can still save a draft if you want to finish later.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="form-navigation mt-4">
+          <button type="button" class="btn btn-outline-dark" data-prev-step hidden>Back</button>
+          <div class="ms-auto d-flex gap-2 flex-wrap">
+            <button type="button" class="btn btn-outline-secondary" data-save-draft>Save draft</button>
+            <button type="button" class="btn btn-dark add-btn" data-next-step>Continue</button>
+            <button type="submit" class="btn btn-dark add-btn" data-submit-form hidden>Submit profile</button>
+          </div>
         </div>
-        <div class="mb-3">
-            <label for="goals" class="form-lable">Aims in life / goals</label>
-            <textarea name="listing[goals]" class="form-control" required></textarea>
-            <div class="invalid-feedback">required</div>
-        </div>
-        <div class="mb-3">
-            <label for="higher_studies" class="form-lable">higher_studies</label>
-            <textarea name="listing[higher_studies]" class="form-control" required></textarea>
-            <div class="invalid-feedback">required</div>
-        </div>
-        <div class="mb-3">
-            <label for="image" class="form-lable">Image link</label>
-            <input type="file" name="listing[image]" class="form-control" >
-        </div>
-        <button class="btn btn-dark mb-3 add-btn">Add</button>
-    </form>
-</body>
-</div>
+      </form>
+    </div>
+  </div>
 </div>

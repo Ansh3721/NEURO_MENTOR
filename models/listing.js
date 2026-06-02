@@ -4,16 +4,53 @@ const stu_problem = require('./stu_problem.js');
 
 
 const listingSchema = new Schema ({
-    email : {
-        type : String,
-        required : true
-    },  
+    email : String,  
     name : String ,
-    family_background : String ,
-    skills : String ,
-    challanges : String ,
-    goals : String ,
-    higher_studies : String ,
+    bio : String ,
+    location : String ,
+    languages : String ,
+    educatorType : String ,
+    studentDetails : {
+      degree : String,
+      college : String,
+      yearSemester : String,
+      cgpaPointer : String,
+      subjectGrades : String,
+    },
+    professionalDetails : {
+      jobRole : String,
+      companyName : String,
+      yearsExperience : Number,
+      previousExperience : String,
+    },
+    subjects : [
+      {
+        name : String,
+        level : String,
+      },
+    ],
+    socialProfiles : {
+      linkedin : String,
+      github : String,
+      instagram : String,
+      portfolio : String,
+    },
+    availability : {
+      days : [String],
+      timeSlots : String,
+    },
+    pricing : Number,
+    identityVerification : {
+      idType : String,
+      governmentId : {
+        url : String,
+        filename : String,
+      },
+    },
+    agreements : {
+      confirmAccuracy : Boolean,
+      acceptTerms : Boolean,
+    },
     image : {
       url : {
         type:String,
@@ -34,7 +71,7 @@ const listingSchema = new Schema ({
       type:Schema.Types.ObjectId,
       ref: "User",
     }
-});
+},{ strict: false });
 
 
 listingSchema.post("findOneAndDelete",async (listing)=>{

@@ -2,23 +2,81 @@
 <div class="row mt-3">
     <div class="col-8 offset-3">
         <body>
-    <h3><%=listing.name %></h3>
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+        <h3 class="mb-0"><%=listing.name %></h3>
+        <% if(listing.verifiedEducator){ %>
+            <span class="badge text-bg-success">Verified educator</span>
+        <% } %>
+    </div>
 </div>
     <div class="card col-6 offset-3 show-card listing-card">
         <img src="<%= listing.image.url %>" alt="image" class="card-img-top show-img profile-photo" >
         <div class="card-body">
             <div class="card-text">
                 <p>
-                    <!-- <b>owned by :</b> <%= //listing.owner.username %><br> -->
-                   <b> Name : </b><%=listing.name %><br>
-                    <b> Email : </b><%= listing.email %> <br>
-                    <b> Family Background : </b> <%= listing.family_background %> <br>
-                    <b> Skills : </b><%= listing.skills %> <br>
-                    <b> Challanges : </b><%= listing.challanges %> <br>
-                    <b> Goals : </b><%= listing.goals %> <br>
-                    <b> Higher Studies : </b><%= listing.higher_studies %>
+                   <b> Educator type : </b><%= listing.educatorType || "Not specified" %> <br>
+                   <b> Location : </b><%= listing.location || "Not specified" %> <br>
+                   <b> Languages : </b><%= listing.languages || "Not specified" %> <br>
+                   <b> Pricing : </b><%= listing.pricing ? `₹${listing.pricing}/hr` : "Not specified" %> <br>
+                   <b> Bio : </b><%= listing.bio || "Not specified" %> <br>
                 </p>
             </div>
+            <% if(listing.subjects && listing.subjects.length){ %>
+                <hr>
+                <h5>Subject expertise</h5>
+                <ul class="mb-0">
+                    <% for(let subject of listing.subjects){ %>
+                        <li><strong><%= subject.name %></strong> - <%= subject.level %></li>
+                    <% } %>
+                </ul>
+            <% } %>
+            <% if(listing.studentDetails){ %>
+                <hr>
+                <h5>Student educator details</h5>
+                <p class="mb-0">
+                    <b>Degree : </b><%= listing.studentDetails.degree %> <br>
+                    <b>College : </b><%= listing.studentDetails.college %> <br>
+                    <b>Year / Semester : </b><%= listing.studentDetails.yearSemester %> <br>
+                    <b>CGPA / Pointer : </b><%= listing.studentDetails.cgpaPointer %> <br>
+                    <b>Marks / Grade : </b><%= listing.studentDetails.subjectGrades %>
+                </p>
+            <% } %>
+            <% if(listing.professionalDetails){ %>
+                <hr>
+                <h5>Professional educator details</h5>
+                <p class="mb-0">
+                    <b>Job role : </b><%= listing.professionalDetails.jobRole %> <br>
+                    <b>Company : </b><%= listing.professionalDetails.companyName %> <br>
+                    <b>Experience : </b><%= listing.professionalDetails.yearsExperience %> years <br>
+                    <b>Previous experience : </b><%= listing.professionalDetails.previousExperience || "Not shared" %>
+                </p>
+            <% } %>
+            <% if(listing.socialProfiles){ %>
+                <hr>
+                <h5>Social profiles</h5>
+                <p class="mb-0">
+                    <% if(listing.socialProfiles.linkedin){ %><b>LinkedIn : </b><a href="<%= listing.socialProfiles.linkedin %>" target="_blank" rel="noreferrer"><%= listing.socialProfiles.linkedin %></a><br><% } %>
+                    <% if(listing.socialProfiles.github){ %><b>GitHub : </b><a href="<%= listing.socialProfiles.github %>" target="_blank" rel="noreferrer"><%= listing.socialProfiles.github %></a><br><% } %>
+                    <% if(listing.socialProfiles.instagram){ %><b>Instagram : </b><a href="<%= listing.socialProfiles.instagram %>" target="_blank" rel="noreferrer"><%= listing.socialProfiles.instagram %></a><br><% } %>
+                    <% if(listing.socialProfiles.portfolio){ %><b>Portfolio : </b><a href="<%= listing.socialProfiles.portfolio %>" target="_blank" rel="noreferrer"><%= listing.socialProfiles.portfolio %></a><% } %>
+                </p>
+            <% } %>
+            <% if(listing.availability){ %>
+                <hr>
+                <h5>Availability</h5>
+                <p class="mb-0">
+                    <b>Days : </b><%= Array.isArray(listing.availability.days) ? listing.availability.days.join(", ") : listing.availability.days %> <br>
+                    <b>Time slots : </b><%= listing.availability.timeSlots %>
+                </p>
+            <% } %>
+            <% if(listing.identityVerification){ %>
+                <hr>
+                <h5>Identity verification</h5>
+                <p class="mb-0">
+                    <b>ID type : </b><%= listing.identityVerification.idType %> <br>
+                    <b>Status : </b><%= listing.verifiedEducator ? "Verified educator" : "Pending review" %>
+                </p>
+            <% } %>
         </div>
     </div>
 

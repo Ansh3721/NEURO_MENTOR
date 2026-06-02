@@ -11,7 +11,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'STU_INFO_DEV',
-    allowedFormat: ["png" , "jpeg" , "jpg"],
+    allowedFormats: ["png" , "jpeg" , "jpg"],
   },
 });
 

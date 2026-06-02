@@ -1,6 +1,6 @@
 <% layout("/layouts/boilerplate") %>
 <body>
-    <h2 class="mt-3">All listings</h2>
+    <h2 class="mt-3">All Educators</h2>
     <!-- <form action="/listing/new" method="get">
         <button>Add new listing</button>
     </form> -->
@@ -12,9 +12,17 @@
                             <div class="card-img-overlay"></div>
                             <div class="card-body">
                                 <p class="card-text">
-                                     <b><%= listings.name %></b>
-                                     <br>
-                                    <%= listings.email %>
+                                                 <b><%= listings.name %></b>
+                                                 <% if(listings.verifiedEducator){ %>
+                                                     <span class="badge text-bg-success ms-1">Verified</span>
+                                                 <% } %>
+                                                 <br>
+                                                 <%= listings.educatorType || "Educator" %>
+                                                 <% if(listings.location){ %>
+                                                     • <%= listings.location %>
+                                                 <% } %>
+                                                 <br>
+                                                 <%= listings.pricing ? `₹${listings.pricing}/hr` : "Pricing on request" %>
                                 </p> 
                              </div>
                         </div>

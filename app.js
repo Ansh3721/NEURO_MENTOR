@@ -14,6 +14,7 @@ const MongoStore = require("connect-mongo");
 const flash = require ("connect-flash");
 const passport = require ("passport");
 const LocalStrategy = require("passport-local");
+const multer = require("multer");
 const User = require("./models/user.js");
 
 
@@ -61,7 +62,7 @@ const sessionOptions = {
     resave: false , 
     saveUninitialized: true ,
     cookie : {
-        expires : Date.now() + 7 * 24 * 60 * 60 * 1000 ,
+        expires : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) ,
         maxAge :  7 * 24 * 60 * 60 * 1000 ,
         httpOnly : true,
     },   
@@ -110,6 +111,12 @@ app.use((req, res, next) => {
 });
 
 app.use((err,req,res,next)=>{
+    if (err instanceof multer.MulterError) {
+        console.error("Multer error:", err.code, err.field, err.message);
+        return res.status(400).render("error.ejs", {
+            message: `${err.message}${err.field ? ` (${err.field})` : ""}`,
+        });
+    }
     let{statusCode = 500 , message = "something went wrong!!"} = err ;
     res.status(statusCode).render("error.ejs" , {message});
     // res.status(statusCode).send(message);

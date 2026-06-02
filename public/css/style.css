@@ -114,3 +114,306 @@ body{
   object-fit: cover !important;     
   display: block !important;
 }
+
+/* Educator onboarding form */
+.educator-form-shell {
+    background: linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
+    border: 1px solid rgba(34, 34, 34, 0.08);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
+}
+
+.educator-form-header {
+    margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #fe424d;
+    font-weight: 700;
+}
+
+.stepper {
+    background: #fff;
+    border-radius: 1.2rem;
+    padding: 1rem 1rem 0.85rem;
+    border: 1px solid rgba(34, 34, 34, 0.08);
+}
+
+.stepper-track {
+    width: 100%;
+    height: 0.55rem;
+    background: #ececec;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.stepper-progress {
+    height: 100%;
+    width: 20%;
+    background: linear-gradient(90deg, #fe424d 0%, #ff7a59 100%);
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+.stepper-labels {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.85rem;
+}
+
+.step-pill {
+    border-radius: 999px;
+    padding: 0.45rem 0.7rem;
+    text-align: center;
+    font-size: 0.82rem;
+    color: #6b7280;
+    background: #f5f5f5;
+}
+
+.step-pill.is-active {
+    color: #111827;
+    background: rgba(254, 66, 77, 0.12);
+    font-weight: 700;
+}
+
+.step-pill.is-complete {
+    background: rgba(34, 197, 94, 0.12);
+    color: #166534;
+}
+
+.stepper-caption {
+    margin-top: 0.75rem;
+    color: #6b7280;
+    font-size: 0.92rem;
+}
+
+.draft-banner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.9rem 1rem;
+    background: linear-gradient(135deg, rgba(254, 66, 77, 0.08), rgba(255, 122, 89, 0.08));
+    border: 1px solid rgba(254, 66, 77, 0.12);
+    border-radius: 1rem;
+}
+
+.draft-actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.section-card,
+.generated-panel,
+.review-panel,
+.pricing-card,
+.card-lite {
+    background: #fff;
+    border: 1px solid rgba(34, 34, 34, 0.08);
+    border-radius: 1.2rem;
+}
+
+.section-card {
+    padding: 1.25rem;
+}
+
+.section-heading {
+    margin-bottom: 1.1rem;
+}
+
+.section-note {
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.step-pane {
+    animation: fadeInUp 0.24s ease;
+}
+
+.choice-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.choice-card {
+    border: 1px solid #d8d8d8;
+    border-radius: 1rem;
+    padding: 0.95rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    background: #fff;
+}
+
+.choice-card:hover {
+    border-color: #fe424d;
+    box-shadow: 0 12px 24px rgba(254, 66, 77, 0.08);
+    transform: translateY(-1px);
+}
+
+.choice-card input {
+    margin-top: 0.25rem;
+}
+
+.choice-card span {
+    display: grid;
+    gap: 0.2rem;
+}
+
+.choice-card small {
+    color: #6b7280;
+}
+
+.conditional-panel {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: #fafafa;
+    border: 1px dashed rgba(34, 34, 34, 0.12);
+}
+
+.subjects-list {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.subject-row {
+    padding: 1rem;
+}
+
+.availability-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.65rem;
+}
+
+.availability-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid #d8d8d8;
+    border-radius: 999px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 0.92rem;
+}
+
+.availability-chip input {
+    accent-color: #fe424d;
+}
+
+.pricing-card {
+    padding: 1rem;
+}
+
+.pricing-value {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.pricing-badge {
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(254, 66, 77, 0.1);
+    color: #fe424d;
+    font-weight: 700;
+    font-size: 0.82rem;
+}
+
+.generated-panel,
+.review-panel {
+    padding: 1rem;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.metric-card {
+    padding: 0.85rem 0.95rem;
+    border-radius: 1rem;
+    background: #f9fafb;
+    border: 1px solid rgba(34, 34, 34, 0.06);
+    display: grid;
+    gap: 0.25rem;
+}
+
+.metric-card span {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.metric-card strong {
+    color: #111827;
+}
+
+.form-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 992px) {
+    .stepper-labels {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .choice-grid,
+    .availability-grid,
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .educator-form-shell {
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+
+    .form-navigation {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-navigation .ms-auto {
+        margin-left: 0 !important;
+        width: 100%;
+    }
+
+    .form-navigation .ms-auto > * {
+        width: 100%;
+    }
+
+    .draft-banner {
+        align-items: flex-start;
+    }
+}

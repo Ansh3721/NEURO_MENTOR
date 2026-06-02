@@ -1,5 +1,29 @@
 const  Listing  = require("../models/listing.js");
 
+function applyUploadedFiles(listing, files = {}) {
+    const fileList = Array.isArray(files) ? files : [];
+    const profilePhoto = fileList.find((file) => file.fieldname === "listing[image]");
+    if (profilePhoto) {
+        listing.image = {
+            url: profilePhoto.path,
+            filename: profilePhoto.filename,
+        };
+    }
+
+    const governmentId = fileList.find((file) => file.fieldname === "listing[governmentId]");
+    if (governmentId) {
+        listing.identityVerification = {
+            ...(listing.identityVerification || {}),
+            governmentId: {
+                url: governmentId.path,
+                filename: governmentId.filename,
+            },
+        };
+    }
+
+    return listing;
+}
+
 //index 
 module.exports.index = async (req,res) => {
     const allListings = await Listing.find();
@@ -12,19 +36,15 @@ module.exports.new = (req,res)=>{
 };
 
 //create
-module.exports.create =  async (req, res, next) => {  // Then wrapAsync the handler
+module.exports.create =  async (req, res) => {
     const listing = new Listing(req.body.listing);
-    if(typeof req.file !== "undefined"){
-        let url = req.file.path ;
-        let filename = req.file.filename ;
-        listing.image = {url,filename};
-        await listing.save();
-    }
+    listing.email = req.body.listing.email || req.user.email;
+    applyUploadedFiles(listing, req.files);
     listing.owner = req.user._id;
     await listing.save();
-    req.flash("success","New student Added!!");
+    req.flash("success","New educator profile added!!");
     res.redirect("/listings");
-    };
+};
 
 
 //show
@@ -47,16 +67,13 @@ module.exports.edit = async(req,res)=>{
 
 //update
 module.exports.update = async (req,res)=>{
-    console.log(req.body.listing);
     const {id} = req.params;
     let listing = await Listing.findByIdAndUpdate(id,{...req.body.listing});
-    if(typeof req.file !== "undefined"){
-        let url = req.file.path ;
-        let filename = req.file.filename ;
-        listing.image = {url,filename};
+    if (listing) {
+        applyUploadedFiles(listing, req.files);
         await listing.save();
     }
-    req.flash("success","student updated!!");
+    req.flash("success","Educator profile updated!!");
     res.redirect(`/listings/${id}`);
 };
 

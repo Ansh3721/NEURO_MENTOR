@@ -25,8 +25,8 @@ router.get(
 router.post(
     "/",
     isLoggedIn,
+    upload.any(),
     validateListing,
-    upload.single('listing[image]'),  // Multer middleware first
     wrapAsync (listingController.create)
 );
 
@@ -49,7 +49,8 @@ router.put(
     "/:id",
     isLoggedIn,
     isOwner,
-    upload.single ('listing[image]') ,
+    upload.any() ,
+    validateListing,
     wrapAsync(listingController.update)
 );
 
