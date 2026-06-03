@@ -29,13 +29,26 @@ module.exports.isOwner = async (req,res,next)=>{
 };
 
 module.exports.validateListing = (req, res, next)=>{
-    let { error } = listingSchema.validate(req.body);
-    if ( error ){
-        let errMsg = error.details.map((el) => el.message).join(",");
-        throw new ExpressError(400, errMsg);
-    }
-    else{
-        next();
+    try {
+        let { error } = listingSchema.validate(req.body);
+        if ( error ){
+            let errMsg = error.details.map((el) => el.message).join(",");
+            console.error("Listing validation failed:", {
+                message: errMsg,
+                bodyKeys: Object.keys(req.body || {}),
+                files: Array.isArray(req.files) ? req.files.map(f => ({ fieldname: f.fieldname, originalname: f.originalname, mimetype: f.mimetype })) : Object.keys(req.files || {})
+            });
+            throw new ExpressError(400, errMsg);
+        }
+        else{
+            next();
+        }
+    } catch (e) {
+        console.error("Error during listing validation:", e && e.message, {
+            bodyKeys: Object.keys(req.body || {}),
+            files: Array.isArray(req.files) ? req.files.map(f => ({ fieldname: f.fieldname, originalname: f.originalname, mimetype: f.mimetype })) : Object.keys(req.files || {})
+        });
+        throw e;
     }
 };
 

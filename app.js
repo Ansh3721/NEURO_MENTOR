@@ -113,12 +113,12 @@ app.use((req, res, next) => {
 app.use((err,req,res,next)=>{
     if (err instanceof multer.MulterError) {
         console.error("Multer error:", err.code, err.field, err.message);
-        return res.status(400).render("error.ejs", {
+        return res.status(400).render("Error.ejs", {
             message: `${err.message}${err.field ? ` (${err.field})` : ""}`,
         });
     }
     let{statusCode = 500 , message = "something went wrong!!"} = err ;
-    res.status(statusCode).render("error.ejs" , {message});
+    res.status(statusCode).render("Error.ejs" , {message});
     // res.status(statusCode).send(message);
 });
 
