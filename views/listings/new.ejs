@@ -51,7 +51,7 @@
               <label for="educator-photo" class="form-label">Profile photo</label>
               <input type="file" id="educator-photo" name="listing[image]" class="form-control" accept="image/png,image/jpeg,image/jpg" required>
               <div class="form-text">Profiles with a face photo are usually trusted more than anonymous profiles.</div>
-              <div class="invalid-feedback">Please upload a clear profile photo.</div>
+              <div class="invalid-feedback">Please upload a valid image file (JPG, JPEG, or PNG) for the profile photo.</div>
             </div>
 
             <div class="mb-3">
@@ -252,6 +252,7 @@
                   <label class="availability-chip"><input type="checkbox" name="listing[availability][days][]" value="Saturday"> Saturday</label>
                   <label class="availability-chip"><input type="checkbox" name="listing[availability][days][]" value="Sunday"> Sunday</label>
                 </div>
+                <div class="invalid-feedback d-block" data-availability-days-error hidden>Please select at least one available day.</div>
                 <div class="form-text">Students should know your available days before they reach out.</div>
               </div>
               <div class="mb-3">
@@ -304,6 +305,7 @@
                   <label for="government-id-upload" class="form-label">Upload government ID</label>
                   <input type="file" id="government-id-upload" name="listing[governmentId]" class="form-control" accept="image/png,image/jpeg,image/jpg" required>
                   <div class="form-text">Uploaded IDs stay private and are used for admin review only.</div>
+                  <div class="invalid-feedback">Please upload a valid image file (JPG, JPEG, or PNG) for verification.</div>
                 </div>
               </div>
             </div>

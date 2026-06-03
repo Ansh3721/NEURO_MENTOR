@@ -1,7 +1,9 @@
 const  Listing  = require("../models/listing.js");
 
 function applyUploadedFiles(listing, files = {}) {
-    const fileList = Array.isArray(files) ? files : [];
+    const fileList = Array.isArray(files)
+        ? files
+        : Object.values(files || {}).flat();
     const profilePhoto = fileList.find((file) => file.fieldname === "listing[image]");
     if (profilePhoto) {
         listing.image = {

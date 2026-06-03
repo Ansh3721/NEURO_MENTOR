@@ -36,12 +36,17 @@
   const subjectTemplate = educatorForm.querySelector('#subject-row-template');
   const addSubjectButton = educatorForm.querySelector('[data-add-subject]');
   const typeError = educatorForm.querySelector('[data-type-error]');
+  const availabilityDayInputs = Array.from(educatorForm.querySelectorAll('input[name="listing[availability][days][]"]'));
+  const availabilityDaysError = educatorForm.querySelector('[data-availability-days-error]');
   const educatorTypeInputs = Array.from(educatorForm.querySelectorAll('input[name="listing[educatorType]"]'));
   const studentSection = educatorForm.querySelector('[data-educator-section="student"]');
   const professionalSection = educatorForm.querySelector('[data-educator-section="professional"]');
   const conditionalInputs = Array.from(educatorForm.querySelectorAll('[data-conditional-input]'));
+  const imageFileInputs = Array.from(educatorForm.querySelectorAll('input[type="file"][name="listing[image]"], input[type="file"][name="listing[governmentId]"]'));
   const storageAvailable = typeof window !== 'undefined' && typeof window.localStorage !== 'undefined';
   let currentStep = 0;
+  const allowedImageMimeTypes = new Set(['image/jpeg', 'image/jpg', 'image/png']);
+  const imageTypeErrorMessage = 'Only image files (JPG, JPEG, PNG) are allowed.';
 
   const pricingLabels = new Map([
     ['50', '₹50/hr'],
@@ -321,6 +326,47 @@
     });
   }
 
+  function validateImageFileInput(input) {
+    const selectedFile = input.files && input.files[0];
+
+    if (!selectedFile) {
+      input.setCustomValidity('');
+      return true;
+    }
+
+    const mimeType = (selectedFile.type || '').toLowerCase();
+    if (allowedImageMimeTypes.has(mimeType)) {
+      input.setCustomValidity('');
+      return true;
+    }
+
+    input.setCustomValidity(imageTypeErrorMessage);
+    return false;
+  }
+
+  function validateAvailabilityDays() {
+    if (!availabilityDayInputs.length) {
+      return true;
+    }
+
+    const hasSelection = availabilityDayInputs.some((input) => input.checked);
+    const firstInput = availabilityDayInputs[0];
+
+    if (hasSelection) {
+      firstInput.setCustomValidity('');
+      if (availabilityDaysError) {
+        availabilityDaysError.hidden = true;
+      }
+      return true;
+    }
+
+    firstInput.setCustomValidity('Please select at least one available day.');
+    if (availabilityDaysError) {
+      availabilityDaysError.hidden = false;
+    }
+    return false;
+  }
+
   function focusFirstInput() {
     const activeStep = steps[currentStep];
     const firstField = activeStep.querySelector('input:not([type="hidden"]):not([disabled]), textarea:not([disabled]), select:not([disabled])');
@@ -349,6 +395,20 @@
     pricingInput.addEventListener('input', syncPricingValue);
     pricingInput.addEventListener('change', saveDraft);
   }
+
+  availabilityDayInputs.forEach((input) => {
+    input.addEventListener('change', () => {
+      validateAvailabilityDays();
+      saveDraft();
+    });
+  });
+
+  imageFileInputs.forEach((input) => {
+    input.addEventListener('change', () => {
+      validateImageFileInput(input);
+      saveDraft();
+    });
+  });
 
   saveDraftButtons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -394,6 +454,25 @@
   educatorForm.addEventListener('submit', (event) => {
     updateConditionalSections();
     ensureSubjectRows();
+
+    const validImageInputs = imageFileInputs.every((input) => validateImageFileInput(input));
+
+    if (!validImageInputs) {
+      event.preventDefault();
+      event.stopPropagation();
+      educatorForm.classList.add('was-validated');
+      educatorForm.reportValidity();
+      return;
+    }
+
+    const validAvailabilityDays = validateAvailabilityDays();
+    if (!validAvailabilityDays) {
+      event.preventDefault();
+      event.stopPropagation();
+      educatorForm.classList.add('was-validated');
+      educatorForm.reportValidity();
+      return;
+    }
 
     if (!educatorForm.checkValidity()) {
       event.preventDefault();

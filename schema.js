@@ -31,7 +31,11 @@ const availabilitySchema = Joi.object({
     days: Joi.alternatives().try(
         Joi.array().items(Joi.string().valid("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")).min(1),
         Joi.string().valid("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
-    ).required(),
+    ).required().messages({
+        "any.required": "Please select at least one available day.",
+        "alternatives.any": "Please select at least one available day.",
+        "alternatives.match": "Please select at least one available day.",
+    }),
     timeSlots: Joi.string().trim().required(),
 });
 
