@@ -57,6 +57,7 @@ router.get("/",wrapAsync(listingController.index));
 router.get(
     "/new",
     isLoggedIn ,
+    require("../middleware.js").preventDuplicateListing,
     listingController.new
     );
 
@@ -64,6 +65,7 @@ router.get(
 router.post(
     "/",
     isLoggedIn,
+    require("../middleware.js").preventDuplicateListing,
     uploadListingFiles,
     normalizeMultipartBody,
     validateListing,

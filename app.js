@@ -96,6 +96,25 @@ app.use((req,res,next)=>{
     next();
 });
 
+// Populate whether the current user already has a listing (used by navbar and guards)
+app.use(async (req, res, next) => {
+    res.locals.hasListing = false;
+    res.locals.userListingId = null;
+    try {
+        if (req.user) {
+            const Listing = require('./models/listing');
+            const existing = await Listing.findOne({ owner: req.user._id }).select('_id');
+            if (existing) {
+                res.locals.hasListing = true;
+                res.locals.userListingId = existing._id;
+            }
+        }
+    } catch (e) {
+        console.error('Error checking user listing:', e && e.message);
+    }
+    next();
+});
+
 
 app.get("/", (req,res)=> {
     res.render("./home.ejs");

@@ -37,7 +37,11 @@
       <div class="navbar-nav me-auto">
         <a class="nav-link" href="/">Home</a>
         <a class="nav-link" href="/listings">All Educators</a>
-        <a class="nav-link  btn btn-light" href="/listings/new">Become An Educator</a>
+        <% if (!hasListing) { %>
+          <a class="nav-link  btn btn-light" href="/listings/new">Become An Educator</a>
+        <% } else { %>
+          <a class="nav-link btn btn-outline-secondary" href="/listings/<%= userListingId %>">Your Educator Profile</a>
+        <% } %>
       </div>
 
       <div class="d-flex flex-column flex-md-row gap-2 ms-md-auto mt-3 mt-md-0">

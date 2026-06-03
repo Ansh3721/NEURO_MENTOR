@@ -2,6 +2,22 @@ const  Listing  = require("./models/listing.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema , stu_problemSchema } = require("./schema.js");
 
+module.exports.preventDuplicateListing = async (req, res, next) => {
+    if (!req.user) {
+        return next();
+    }
+    try {
+        const existing = await Listing.findOne({ owner: req.user._id });
+        if (existing) {
+            req.flash('error', 'You already have an educator profile.');
+            return res.redirect(`/listings/${existing._id}`);
+        }
+        return next();
+    } catch (err) {
+        return next(err);
+    }
+};
+
 module.exports.isLoggedIn = (req,res,next)=>{
     if(!req.isAuthenticated()){
         req.session.redirectUrl = req.originalUrl;
