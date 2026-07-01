@@ -1,0 +1,147 @@
+<% layout('/layouts/boilerplate') %>
+
+<div class="student-onboarding-shell">
+  <div class="student-onboarding-card">
+    <div class="student-onboarding-header">
+      <div class="eyebrow">Neuro_Mentor</div>
+      <h2>Complete Your Student Profile</h2>
+      <p>Tell us a little about yourself so we can connect you with the right educators and learning opportunities.</p>
+    </div>
+
+    <form action="/student-profile" method="POST" enctype="multipart/form-data" class="student-form">
+      <div class="form-section">
+        <h5>Basic Information</h5>
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label" for="fullName">Full Name</label>
+            <input id="fullName" name="studentProfile[fullName]" class="form-control" type="text" placeholder="Enter your full name" required value="<%= profile?.fullName || '' %>">
+          </div>
+
+          <div class="col-12">
+            <label class="form-label" for="profilePhoto">Upload Profile Photo (Optional)</label>
+            <input id="profilePhoto" name="studentProfile[profilePhoto]" class="form-control" type="file" accept="image/*">
+            <% if (profile?.profilePhoto?.url) { %>
+              <img src="<%= profile.profilePhoto.url %>" alt="Profile preview" class="profile-preview mt-3">
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h5>Student Type</h5>
+        <div class="student-type-group">
+          <label class="student-type-card">
+            <input type="radio" name="studentProfile[studentType]" value="School Student" required <% if (profile?.studentType === 'School Student') { %>checked<% } %>>
+            <span>School Student</span>
+          </label>
+          <label class="student-type-card">
+            <input type="radio" name="studentProfile[studentType]" value="College Student" required <% if (profile?.studentType === 'College Student') { %>checked<% } %>>
+            <span>College Student</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-section conditional-section" data-student-type-section>
+        <div class="school-fields" data-school-fields>
+          <h5>School Details</h5>
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label" for="schoolName">School Name</label>
+              <input id="schoolName" name="studentProfile[schoolName]" class="form-control" type="text" placeholder="Enter your school name" value="<%= profile?.schoolName || '' %>">
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="currentClass">Current Class</label>
+              <select id="currentClass" name="studentProfile[currentClass]" class="form-select">
+                <option value="">Select class</option>
+                <% ['Class 6','Class 7','Class 8','Class 9','Class 10','Class 11','Class 12'].forEach((option) => { %>
+                  <option value="<%= option %>" <% if (profile?.currentClass === option) { %>selected<% } %>><%= option %></option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="board">Board</label>
+              <select id="board" name="studentProfile[board]" class="form-select">
+                <option value="">Select board</option>
+                <% ['CBSE','ICSE','State Board','IB','Other'].forEach((option) => { %>
+                  <option value="<%= option %>" <% if (profile?.board === option) { %>selected<% } %>><%= option %></option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="college-fields" data-college-fields>
+          <h5>College Details</h5>
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label" for="collegeName">College Name</label>
+              <input id="collegeName" name="studentProfile[collegeName]" class="form-control" type="text" placeholder="Enter your college name" value="<%= profile?.collegeName || '' %>">
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="currentYear">Current Year</label>
+              <select id="currentYear" name="studentProfile[currentYear]" class="form-select">
+                <option value="">Select year</option>
+                <% ['First Year','Second Year','Third Year','Fourth Year','Other'].forEach((option) => { %>
+                  <option value="<%= option %>" <% if (profile?.currentYear === option) { %>selected<% } %>><%= option %></option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="branch">Branch</label>
+              <input id="branch" name="studentProfile[branch]" class="form-control" list="branchOptions" placeholder="Type or select your branch" value="<%= profile?.branch || '' %>">
+              <datalist id="branchOptions">
+                <% ['Computer Engineering','Information Technology','Computer Science','Mechanical Engineering','Civil Engineering','Electronics Engineering','Electrical Engineering','BCA','BSc IT','BCom','BBA','Other'].forEach((option) => { %>
+                  <option value="<%= option %>"></option>
+                <% }) %>
+              </datalist>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="currentSemester">Current Semester</label>
+              <select id="currentSemester" name="studentProfile[currentSemester]" class="form-select">
+                <option value="">Select semester</option>
+                <% ['Semester 1','Semester 2','Semester 3','Semester 4','Semester 5','Semester 6','Semester 7','Semester 8'].forEach((option) => { %>
+                  <option value="<%= option %>" <% if (profile?.currentSemester === option) { %>selected<% } %>><%= option %></option>
+                <% }) %>
+              </select>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="streamDegree">Stream / Degree</label>
+              <select id="streamDegree" name="studentProfile[streamDegree]" class="form-select">
+                <option value="">Select stream</option>
+                <% ['Engineering','Science','Commerce','Arts','Management','Medical','Law','Other'].forEach((option) => { %>
+                  <option value="<%= option %>" <% if (profile?.streamDegree === option) { %>selected<% } %>><%= option %></option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="student-form-actions">
+        <button class="btn btn-primary" type="submit">Continue</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const studentTypeInputs = document.querySelectorAll('input[name="studentProfile[studentType]"]');
+  const schoolFields = document.querySelector('[data-school-fields]');
+  const collegeFields = document.querySelector('[data-college-fields]');
+
+  function toggleStudentContext() {
+    const selected = document.querySelector('input[name="studentProfile[studentType]"]:checked')?.value;
+    const isSchool = selected === 'School Student';
+    const isCollege = selected === 'College Student';
+
+    if (schoolFields) {
+      schoolFields.style.display = isSchool ? 'block' : 'none';
+    }
+    if (collegeFields) {
+      collegeFields.style.display = isCollege ? 'block' : 'none';
+    }
+  }
+
+  studentTypeInputs.forEach((input) => input.addEventListener('change', toggleStudentContext));
+  toggleStudentContext();
+</script>

@@ -16,13 +16,13 @@ const passport = require ("passport");
 const LocalStrategy = require("passport-local");
 const multer = require("multer");
 const User = require("./models/user.js");
-
+const StudentProfile = require("./models/studentProfile.js");
 
 const listingRouter = require("./routs/listing.js");
 const reviewRouter = require("./routs/review.js");
 const userRouter = require("./routs/user.js");
+const studentProfileRouter = require("./routs/studentProfile.js");
 
-// let MONGO_URL = "mongodb://127.0.0.1:27017/stu_info";
 let dbUrl = process.env.ATLASDB_URL ;
 
 main()
@@ -52,8 +52,8 @@ const store = MongoStore.create({
     touchAfter : 24 * 60 ,
 });
 
-store.on("error",()=>{
-    console.log("Error in MONGO SESSION STORE" , err);
+store.on("error",(err)=>{
+    console.log("Error in MONGO SESSION STORE", err);
 })
 
 const sessionOptions = {
@@ -78,17 +78,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
-app.get("/registeruser", async(req,res) =>{
-    let fakeUser = new User ({
-        email: "ansh@gmail.com",
-        username :"ansh",
-    });
-    let newUser = await User.register(fakeUser ,"ansh283");
-    res.send(newUser);
-})
-
-
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
@@ -100,17 +89,25 @@ app.use((req,res,next)=>{
 app.use(async (req, res, next) => {
     res.locals.hasListing = false;
     res.locals.userListingId = null;
+    res.locals.hasStudentProfile = false;
+    res.locals.studentProfileId = null;
     try {
         if (req.user) {
             const Listing = require('./models/listing');
-            const existing = await Listing.findOne({ owner: req.user._id }).select('_id');
-            if (existing) {
+            const existingListing = await Listing.findOne({ owner: req.user._id }).select('_id');
+            if (existingListing) {
                 res.locals.hasListing = true;
-                res.locals.userListingId = existing._id;
+                res.locals.userListingId = existingListing._id;
+            }
+
+            const existingProfile = await StudentProfile.findOne({ owner: req.user._id }).select('_id');
+            if (existingProfile) {
+                res.locals.hasStudentProfile = true;
+                res.locals.studentProfileId = existingProfile._id;
             }
         }
     } catch (e) {
-        console.error('Error checking user listing:', e && e.message);
+        console.error('Error checking user profile state:', e && e.message);
     }
     next();
 });
@@ -123,6 +120,7 @@ app.get("/", (req,res)=> {
 
 app.use ("/listings" , listingRouter);
 app.use ("/listings/:id/stu_problem",reviewRouter);
+app.use("/student-profile", studentProfileRouter);
 app.use("/",userRouter);
 
 app.use((req, res, next) => {

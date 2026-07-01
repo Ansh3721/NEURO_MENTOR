@@ -45,12 +45,16 @@
       </div>
 
       <div class="d-flex flex-column flex-md-row gap-2 ms-md-auto mt-3 mt-md-0">
-        <a class="btn btn-light" href="/comming soon">Join as Student</a>
         <% if (!currUser) { %>
           <a href="/signup" class="btn btn-light">Sign Up</a>
           <a href="/login" class="btn btn-light">Log In</a>
         <% } else { %>
           <a href="/logout" class="btn btn-light">Log Out</a>
+        <% } %>
+        <% if (currUser && hasStudentProfile) { %>
+          <a class="btn btn-light" href="/student-profile">My Profile</a>
+        <% } else { %>
+          <a class="btn btn-light" href="/student-profile/new">Join as Student</a>
         <% } %>
       </div>
     </div>

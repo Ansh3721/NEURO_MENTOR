@@ -1,0 +1,194 @@
+<% layout('/layouts/boilerplate') %>
+
+<div class="profile-dashboard-shell">
+  <% if (error) { %>
+    <div class="profile-state-card profile-error-card" role="alert">
+      <h3>Unable to load your profile.</h3>
+      <p>Please try again.</p>
+      <a class="btn btn-primary" href="/student-profile">Retry</a>
+    </div>
+  <% } else if (!profile) { %>
+    <div class="profile-state-card">
+      <div class="eyebrow">Nuero_Mentor</div>
+      <h2>My Profile</h2>
+      <p>Manage your personal information and keep your profile updated to receive better educator recommendations.</p>
+      <a class="btn btn-primary mt-3" href="/student-profile/new">Complete your profile</a>
+    </div>
+  <% } else { %>
+    <div class="profile-dashboard-header">
+      <div>
+        <div class="eyebrow">Nuero_Mentor</div>
+        <h1>My Profile</h1>
+        <p>Manage your personal information and keep your profile updated to receive better educator recommendations.</p>
+      </div>
+    </div>
+
+    <div class="profile-grid">
+      <section class="profile-card profile-hero-card">
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar-image">
+            <% if (profile.profilePhoto?.url) { %>
+              <img src="<%= profile.profilePhoto.url %>" alt="<%= profile.fullName %> profile" />
+            <% } else { %>
+              <div class="profile-initials-avatar"><span><%= profile.initials %></span></div>
+            <% } %>
+          </div>
+          <label class="profile-photo-action" for="profilePhotoInput" title="Change profile photo">
+            <i class="fa-solid fa-camera"></i>
+            <input id="profilePhotoInput" class="d-none" type="file" accept="image/*" />
+          </label>
+        </div>
+        <div class="profile-hero-content">
+          <h2><%= profile.fullName || 'Student Name' %></h2>
+          <p class="profile-role"><%= profile.studentType || 'Student' %></p>
+          <p class="profile-school"><%= profile.institutionLabel %></p>
+          <div class="profile-hero-actions">
+            <button class="btn btn-light btn-sm" type="button" data-edit-profile>Edit Profile</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="profile-card personal-card">
+        <div class="profile-card-head">
+          <h3>Personal Information</h3>
+          <button class="text-link" type="button" data-edit-profile>Edit</button>
+        </div>
+        <div class="info-grid">
+          <div class="info-item"><span>Full Name</span><strong><%= profile.fullName || 'Not Added Yet' %></strong></div>
+          <div class="info-item"><span>Student Type</span><strong><%= profile.studentType || 'Not Added Yet' %></strong></div>
+          <% if (profile.studentType === 'School Student') { %>
+            <div class="info-item"><span>School Name</span><strong><%= profile.schoolName || 'Not Added Yet' %></strong></div>
+            <div class="info-item"><span>Current Class</span><strong><%= profile.currentClass || 'Not Added Yet' %></strong></div>
+            <div class="info-item"><span>Board</span><strong><%= profile.board || 'Not Added Yet' %></strong></div>
+          <% } else { %>
+            <div class="info-item"><span>College Name</span><strong><%= profile.collegeName || 'Not Added Yet' %></strong></div>
+            <div class="info-item"><span>Current Year</span><strong><%= profile.currentYear || 'Not Added Yet' %></strong></div>
+            <div class="info-item"><span>Branch</span><strong><%= profile.branch || 'Not Added Yet' %></strong></div>
+            <div class="info-item"><span>Semester</span><strong><%= profile.currentSemester || 'Not Added Yet' %></strong></div>
+            <div class="info-item"><span>Stream / Degree</span><strong><%= profile.streamDegree || 'Not Added Yet' %></strong></div>
+          <% } %>
+        </div>
+      </section>
+
+      <section class="profile-card quick-actions-card">
+        <div class="profile-card-head">
+          <h3>Quick Actions</h3>
+        </div>
+        <div class="quick-actions-grid">
+          <button class="quick-action" type="button" data-edit-profile><i class="fa-solid fa-user-pen"></i><span>Edit Profile</span></button>
+          <label class="quick-action" for="profilePhotoInput"><i class="fa-solid fa-image"></i><span>Change Profile Photo</span></label>
+          <a class="quick-action" href="/student-profile/new"><i class="fa-solid fa-arrow-right-to-bracket"></i><span>Continue Profile Setup</span></a>
+          <button class="quick-action" type="button"><i class="fa-solid fa-wallet"></i><span>Wallet</span></button>
+          <button class="quick-action" type="button"><i class="fa-solid fa-calendar-check"></i><span>Booking History</span></button>
+          <button class="quick-action" type="button"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+        </div>
+      </section>
+
+      <section class="profile-card academic-card">
+        <div class="profile-card-head">
+          <h3>Academic Information</h3>
+        </div>
+        <div class="academic-stack">
+          <div class="academic-pill"><span>Institution</span><strong><%= profile.institutionLabel %></strong></div>
+          <div class="academic-pill"> <span>Academic Details</span><strong><%= profile.academicSummary %></strong></div>
+        </div>
+      </section>
+
+      <section class="profile-card wallet-card">
+        <div class="profile-card-head">
+          <h3>Wallet Preview</h3>
+        </div>
+        <div class="wallet-row">
+          <div>
+            <p class="wallet-label">Wallet Balance</p>
+            <h4>₹<%= profile.walletBalance ?? 0 %></h4>
+          </div>
+          <a href="#" class="btn btn-outline-secondary btn-sm">View Wallet →</a>
+        </div>
+      </section>
+
+      <section class="profile-card booking-card">
+        <div class="profile-card-head">
+          <h3>Booking Summary</h3>
+        </div>
+        <div class="booking-grid">
+          <div class="booking-pill"><span>Upcoming</span><strong><%= profile.bookingSummary.upcomingSessions %></strong></div>
+          <div class="booking-pill"><span>Completed</span><strong><%= profile.bookingSummary.completedSessions %></strong></div>
+          <div class="booking-pill"><span>Cancelled</span><strong><%= profile.bookingSummary.cancelledSessions %></strong></div>
+        </div>
+      </section>
+
+      <section class="profile-card preferences-card">
+        <div class="profile-card-head">
+          <h3>Notification Preferences</h3>
+        </div>
+        <form id="preferencesForm" class="preferences-form">
+          <label class="toggle-row"><span>Email Notifications</span><input type="checkbox" name="emailNotifications" <%= profile?.notificationPreferences?.emailNotifications ? 'checked' : '' %> /></label>
+          <label class="toggle-row"><span>Session Reminders</span><input type="checkbox" name="sessionReminders" <%= profile?.notificationPreferences?.sessionReminders ? 'checked' : '' %> /></label>
+          <label class="toggle-row"><span>Promotional Notifications</span><input type="checkbox" name="promotionalNotifications" <%= profile?.notificationPreferences?.promotionalNotifications ? 'checked' : '' %> /></label>
+        </form>
+      </section>
+
+      <section class="profile-card account-card">
+        <div class="profile-card-head">
+          <h3>Account</h3>
+        </div>
+        <div class="account-actions">
+          <a class="account-link" href="#">Change Password</a>
+          <a class="account-link" href="#">Privacy Settings</a>
+          <button class="account-link danger" type="button" id="deleteAccountBtn">Delete Account</button>
+          <a class="account-link" href="/logout">Logout</a>
+        </div>
+      </section>
+    </div>
+  <% } %>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const photoInput = document.getElementById('profilePhotoInput');
+    const editButtons = document.querySelectorAll('[data-edit-profile]');
+    const deleteBtn = document.getElementById('deleteAccountBtn');
+    const prefsForm = document.getElementById('preferencesForm');
+
+    if (photoInput) {
+      photoInput.addEventListener('change', async () => {
+        if (!photoInput.files?.[0]) return;
+        const formData = new FormData();
+        formData.append('profilePhoto', photoInput.files[0]);
+        const response = await fetch('/student-profile/photo', {
+          method: 'POST',
+          body: formData,
+          headers: { Accept: 'application/json' }
+        });
+        const data = await response.json();
+        if (data.success) {
+          window.location.reload();
+        }
+      });
+    }
+
+    editButtons.forEach((button) => button.addEventListener('click', () => {
+      window.location.href = '/student-profile/new';
+    }));
+
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', () => {
+        if (confirm('Delete your account profile permanently?')) {
+          fetch('/student-profile', { method: 'DELETE', headers: { Accept: 'application/json' } }).then(() => window.location.href = '/logout');
+        }
+      });
+    }
+
+    if (prefsForm) {
+      prefsForm.addEventListener('change', async () => {
+        const formData = new FormData(prefsForm);
+        await fetch('/student-profile/preferences', {
+          method: 'POST',
+          body: formData,
+          headers: { Accept: 'application/json' }
+        });
+      });
+    }
+  });
+</script>

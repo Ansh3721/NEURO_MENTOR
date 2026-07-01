@@ -3,22 +3,43 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background: #ffffff;
+    color: #111111;
 }
 .container{
     flex: 1;
 }
 
+:root {
+    --nuero-primary-bg: #111111;
+    --nuero-cta: #1f1f1f;
+    --nuero-accent: #3a3a3a;
+    --nuero-light: #f5f5f5;
+    --nuero-surface: #ffffff;
+    --nuero-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
 /* Navbar */
 .navbar{
     height: 5rem;
-    background-color: white;
+    background: #ffffff;
+    border-bottom: 1px solid rgba(17, 17, 17, 0.08) !important;
 }
 .fa-compass{
-    color: #fe424d;
+    color: #111111 !important;
     font-size: 2rem;
 }
 .nav-link{
     color: #222222 !important;
+}
+.navbar .btn-primary,
+.navbar .btn-light {
+    border-radius: 999px;
+}
+.navbar .btn-primary {
+    background: #111111;
+    border-color: #111111;
+    color: white;
 }
 
 /* Footer */
@@ -76,8 +97,9 @@ body{
     background-color: white;
 }
 .add-btn{
-    background-color: #fe424d !important;
+    background: linear-gradient(135deg, #111111 0%, #333333 100%) !important;
     border: none !important;
+    box-shadow: 0 10px 20px rgba(17, 17, 17, 0.16);
 }
 
 /* show page */
@@ -132,7 +154,7 @@ body{
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #fe424d;
+    color: #111111 !important;
     font-weight: 700;
 }
 
@@ -154,7 +176,7 @@ body{
 .stepper-progress {
     height: 100%;
     width: 20%;
-    background: linear-gradient(90deg, #fe424d 0%, #ff7a59 100%);
+    background: linear-gradient(90deg, #111111 0%, #333333 100%);
     border-radius: 999px;
     transition: width 0.3s ease;
 }
@@ -199,8 +221,8 @@ body{
     gap: 0.75rem;
     align-items: center;
     padding: 0.9rem 1rem;
-    background: linear-gradient(135deg, rgba(254, 66, 77, 0.08), rgba(255, 122, 89, 0.08));
-    border: 1px solid rgba(254, 66, 77, 0.12);
+    background: linear-gradient(135deg, rgba(17, 17, 17, 0.06), rgba(51, 51, 51, 0.06));
+    border: 1px solid rgba(17, 17, 17, 0.1);
     border-radius: 1rem;
 }
 
@@ -256,8 +278,8 @@ body{
 }
 
 .choice-card:hover {
-    border-color: #fe424d;
-    box-shadow: 0 12px 24px rgba(254, 66, 77, 0.08);
+    border-color: #222222;
+    box-shadow: 0 12px 24px rgba(34, 34, 34, 0.08);
     transform: translateY(-1px);
 }
 
@@ -311,7 +333,7 @@ body{
 }
 
 .availability-chip input {
-    accent-color: #fe424d;
+    accent-color: #222222;
 }
 
 .pricing-card {
@@ -327,8 +349,8 @@ body{
 .pricing-badge {
     padding: 0.35rem 0.7rem;
     border-radius: 999px;
-    background: rgba(254, 66, 77, 0.1);
-    color: #fe424d;
+    background: rgba(34, 34, 34, 0.1);
+    color: #222222;
     font-weight: 700;
     font-size: 0.82rem;
 }
@@ -393,6 +415,453 @@ body{
     }
 }
 
+.student-onboarding-shell {
+    padding: 2rem 0 3rem;
+}
+
+.student-onboarding-card {
+    background: linear-gradient(135deg, #ffffff 0%, #eef4fa 100%);
+    border: 1px solid rgba(28, 30, 83, 0.08);
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 50px rgba(28, 30, 83, 0.08);
+    padding: 2rem;
+}
+
+.student-onboarding-header h2 {
+    color: #111827;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.student-onboarding-header p {
+    color: #5b6472;
+    max-width: 700px;
+}
+
+.progress-card {
+    margin: 1.5rem 0 1.25rem;
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(28, 30, 83, 0.08);
+}
+
+.progress-labels {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+}
+
+.progress-pill {
+    border-radius: 999px;
+    padding: 0.45rem 0.8rem;
+    background: #eef4fa;
+    color: #5b6472;
+    font-size: 0.9rem;
+}
+
+.progress-pill.active {
+    background: rgba(87, 81, 225, 0.15);
+    color: #111827;
+    font-weight: 700;
+}
+
+.progress-track {
+    width: 100%;
+    height: 0.55rem;
+    background: #e9eef5;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.student-form .form-section {
+    margin-top: 1.25rem;
+    padding: 1.15rem 1.2rem;
+    border-radius: 1rem;
+    background: #fff;
+    border: 1px solid rgba(28, 30, 83, 0.08);
+}
+
+.student-form h5 {
+    color: #6b7280;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.student-type-group {
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.student-type-card {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.9rem 1rem;
+    border-radius: 0.9rem;
+    border: 1px solid #d9e3ef;
+    background: #f8fbff;
+    cursor: pointer;
+}
+
+.student-type-card input {
+    accent-color: #222222;
+}
+
+.student-form-actions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.student-form-actions .btn-primary {
+    background: #222222 !important;
+    border-color: #222222 !important;
+}
+
+.profile-preview {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #eef4fa;
+}
+
+.profile-dashboard-shell {
+    padding: 2rem 0 3rem;
+    animation: fadeInUp 0.3s ease;
+}
+
+.profile-dashboard-header {
+    margin-bottom: 1.25rem;
+}
+
+.profile-dashboard-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.profile-dashboard-header p {
+    color: #5b6472;
+    max-width: 760px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1.2rem;
+}
+
+.profile-card {
+    background: var(--nuero-surface);
+    border-radius: 1.25rem;
+    padding: 1.15rem;
+    box-shadow: var(--nuero-shadow);
+    border: 1px solid rgba(32, 33, 52, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 55px rgba(51, 51, 74, 0.15);
+}
+
+.profile-hero-card {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    min-height: 120px;
+    background: linear-gradient(135deg, #4a4747 0%, #3a3838 100%);
+    color: #fff;
+}
+
+.profile-progress-card, .quick-actions-card, .academic-card, .wallet-card, .booking-card, .preferences-card, .account-card, .personal-card {
+    grid-column: span 4;
+}
+
+.profile-avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.profile-avatar-image {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #fff 0%, #eef4fa 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-initials-avatar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #222222 !important;
+    background: linear-gradient(135deg, #8d91ff 0%, #5751E1 100%);
+}
+
+.profile-photo-action {
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--nuero-accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.16);
+    cursor: pointer;
+}
+
+.profile-hero-content {
+    flex: 1;
+}
+
+.profile-hero-content h2 {
+    margin-bottom: 0.25rem;
+    font-weight: 800;
+}
+
+.profile-role, .profile-school {
+    margin-bottom: 0.2rem;
+    color: rgba(255,255,255,0.86);
+}
+
+.profile-hero-actions {
+    display: flex;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-top: 0.8rem;
+}
+
+.profile-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+}
+
+.profile-card-head h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: 999px;
+    padding: 0.35rem 0.7rem;
+    background: rgba(87, 81, 225, 0.12);
+    color: var(--nuero-accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.pill.muted {
+    background: #eef4fa;
+    color: #6b7280;
+}
+
+.progress-track {
+    width: 100%;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: #eef4fa;
+    overflow: hidden;
+    margin-bottom: 0.7rem;
+}
+
+.profile-progress-card p, .profile-state-card p, .account-link, .wallet-label, .booking-pill span, .academic-pill span, .info-item span {
+    color: #5b6472;
+}
+
+.info-grid, .booking-grid, .quick-actions-grid {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem 0.8rem;
+    border-radius: 0.9rem;
+    background: #f8fbff;
+}
+
+.info-item strong {
+    color: #111827;
+    font-weight: 700;
+}
+
+.quick-actions-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.quick-action {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid #e9eef5;
+    border-radius: 0.95rem;
+    padding: 0.8rem;
+    background: #f8fbff;
+    color: #111827;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.quick-action:hover {
+    background: #eef4fa;
+    transform: translateY(-1px);
+}
+
+.wallet-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.wallet-row h4 {
+    font-weight: 800;
+    color: #111827;
+}
+
+.booking-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.booking-pill, .academic-pill {
+    padding: 0.8rem;
+    border-radius: 0.9rem;
+    background: #f8fbff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.booking-pill strong, .academic-pill strong {
+    color: #111827;
+    font-weight: 700;
+}
+
+.preferences-form {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 0.8rem;
+    border-radius: 0.9rem;
+    background: #f8fbff;
+}
+
+.toggle-row input {
+    accent-color: var(--nuero-accent);
+}
+
+.account-actions {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.account-link {
+    text-decoration: none;
+    background: #f8fbff;
+    border-radius: 0.9rem;
+    padding: 0.7rem 0.8rem;
+    color: #111827;
+    border: none;
+    text-align: left;
+}
+
+.account-link.danger {
+    color: #222222 !important;
+}
+
+.text-link {
+    border: none;
+    background: transparent;
+    color: var(--nuero-accent);
+    font-weight: 700;
+}
+
+.profile-state-card {
+    background: var(--nuero-surface);
+    border-radius: 1.3rem;
+    padding: 1.6rem;
+    box-shadow: var(--nuero-shadow);
+    text-align: center;
+}
+
+.profile-error-card {
+    border: 1px solid rgba(220, 38, 38, 0.16);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes progressGrow {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@media (max-width: 992px) {
+    .profile-hero-card, .profile-progress-card, .quick-actions-card, .academic-card, .wallet-card, .booking-card, .preferences-card, .account-card, .personal-card {
+        grid-column: span 6;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-hero-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-hero-card, .profile-progress-card, .quick-actions-card, .academic-card, .wallet-card, .booking-card, .preferences-card, .account-card, .personal-card {
+        grid-column: span 12;
+    }
+}
+
 @media (max-width: 576px) {
     .educator-form-shell {
         padding: 1rem;
@@ -414,6 +883,25 @@ body{
     }
 
     .draft-banner {
+        align-items: flex-start;
+    }
+
+    .student-onboarding-card {
+        padding: 1.2rem;
+    }
+
+    .student-type-group {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-actions-grid,
+    .future-grid,
+    .booking-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .wallet-row {
+        flex-direction: column;
         align-items: flex-start;
     }
 }
