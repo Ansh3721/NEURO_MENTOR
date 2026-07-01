@@ -51,6 +51,9 @@
         <% } else { %>
           <a href="/logout" class="btn btn-light">Log Out</a>
         <% } %>
+        <% if (currUser) { %>
+          <a class="btn btn-outline-dark" href="/wallet">Wallet</a>
+        <% } %>
         <% if (currUser && hasStudentProfile) { %>
           <a class="btn btn-light" href="/student-profile">My Profile</a>
         <% } else { %>

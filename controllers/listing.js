@@ -1,5 +1,17 @@
 const  Listing  = require("../models/listing.js");
 
+function buildListingViewModel(listing) {
+    if (!listing) return null;
+    const payload = listing.toObject ? listing.toObject() : { ...listing };
+    payload.walletBalance = payload.walletBalance ?? 0;
+    payload.bookingSummary = {
+        upcomingSessions: payload.bookingSummary?.upcomingSessions ?? 0,
+        completedSessions: payload.bookingSummary?.completedSessions ?? 0,
+        cancelledSessions: payload.bookingSummary?.cancelledSessions ?? 0,
+    };
+    return payload;
+}
+
 function applyUploadedFiles(listing, files = {}) {
     const fileList = Array.isArray(files)
         ? files
@@ -66,7 +78,7 @@ module.exports.show = async (req,res) =>{
         req.flash("error","student does not exist!!");
         return res.redirect("/listings");
     }
-    res.render("listings/show.ejs",{listing});
+    res.render("listings/show.ejs",{listing: buildListingViewModel(listing)});
 };
 
 //edit

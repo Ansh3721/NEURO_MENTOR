@@ -117,6 +117,27 @@ app.get("/", (req,res)=> {
     res.render("./home.ejs");
 });
 
+app.get('/wallet', async (req, res) => {
+    if (!req.user) {
+        return res.redirect('/login');
+    }
+
+    const StudentProfile = require('./models/studentProfile');
+    const Listing = require('./models/listing');
+
+    const studentProfile = await StudentProfile.findOne({ owner: req.user._id });
+    const educatorProfile = await Listing.findOne({ owner: req.user._id });
+
+    const balance = studentProfile?.walletBalance ?? educatorProfile?.walletBalance ?? 0;
+    const bookingSummary = studentProfile?.bookingSummary || educatorProfile?.bookingSummary || {};
+
+    res.render('wallet.ejs', {
+        balance,
+        upcoming: bookingSummary.upcomingSessions ?? 0,
+        completed: bookingSummary.completedSessions ?? 0,
+        cancelled: bookingSummary.cancelledSessions ?? 0,
+    });
+});
 
 app.use ("/listings" , listingRouter);
 app.use ("/listings/:id/stu_problem",reviewRouter);

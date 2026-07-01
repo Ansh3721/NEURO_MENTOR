@@ -1,0 +1,25 @@
+<% layout('/layouts/boilerplate') %>
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="profile-card">
+        <div class="profile-card-head">
+          <h3>Wallet</h3>
+          <span class="pill">Shared Wallet</span>
+        </div>
+        <div class="wallet-row">
+          <div>
+            <p class="wallet-label">Available Balance</p>
+            <h4>₹<%= balance %></h4>
+          </div>
+          <a class="btn btn-dark btn-sm" href="/student-profile">Back to Profile</a>
+        </div>
+        <div class="booking-grid mt-3">
+          <div class="booking-pill"><span>Upcoming</span><strong><%= upcoming %></strong></div>
+          <div class="booking-pill"><span>Completed</span><strong><%= completed %></strong></div>
+          <div class="booking-pill"><span>Cancelled</span><strong><%= cancelled %></strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

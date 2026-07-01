@@ -40,6 +40,15 @@ const listingSchema = new Schema ({
       timeSlots : String,
     },
     pricing : Number,
+    walletBalance: {
+      type: Number,
+      default: 0,
+    },
+    bookingSummary: {
+      upcomingSessions: { type: Number, default: 0 },
+      completedSessions: { type: Number, default: 0 },
+      cancelledSessions: { type: Number, default: 0 },
+    },
     identityVerification : {
       idType : String,
       governmentId : {
