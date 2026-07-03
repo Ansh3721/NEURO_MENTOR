@@ -1595,6 +1595,26 @@ body {
   .nm-hero-actions { flex-direction: column; align-items: center; }
   .nm-hero .btn-primary,
   .nm-hero .btn-outline-dark { width: 100%; max-width: 300px; }
+
+  /* QnA mobile styles */
+  .faq-tabs {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+  .faq-tabs .nav-link {
+    text-align: center;
+    font-size: 0.92rem;
+    padding: 0.6rem 1rem;
+  }
+  .faq-accordion .accordion-button {
+    font-size: 0.95rem;
+    padding: 1rem;
+  }
+  .faq-accordion .accordion-body {
+    padding: 1rem;
+    font-size: 0.92rem;
+  }
 }
 
 /* ---------- Home Page Extension Content ---------- */
