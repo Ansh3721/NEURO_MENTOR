@@ -2142,6 +2142,35 @@ body {
   background: var(--nm-white);
 }
 
+/* Home Page Extension Sections Responsive Overrides */
+@media (max-width: 992px) {
+  .mv-container {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+  
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  
+  .rating-section-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+  }
+
+  .dilemma-container {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .feature-grid-nm {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+  }
+}
+
+
 
 
 
