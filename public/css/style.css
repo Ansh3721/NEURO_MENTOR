@@ -2054,6 +2054,75 @@ body {
   margin: 0;
 }
 
+/* FAQ / QnA Accordion styles */
+.faq-tabs {
+  justify-content: center;
+  border-bottom: 2px solid var(--nm-border-light);
+  margin-bottom: 2.5rem;
+  gap: 1rem;
+}
+
+.faq-tabs .nav-link {
+  font-weight: 700;
+  color: var(--nm-text-muted);
+  border: none;
+  background: transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: 99px;
+  font-size: 1rem;
+  transition: var(--nm-transition);
+}
+
+.faq-tabs .nav-link:hover {
+  color: var(--nm-primary);
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.faq-tabs .nav-link.active {
+  color: var(--nm-white) !important;
+  background: var(--nm-primary) !important;
+  box-shadow: 0 4px 14px var(--nm-primary-glow);
+}
+
+.faq-accordion .accordion-item {
+  border: 1px solid var(--nm-border-light);
+  border-radius: var(--nm-radius-md) !important;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: var(--nm-shadow-sm);
+  background: var(--nm-white);
+  transition: var(--nm-transition);
+}
+
+.faq-accordion .accordion-item:hover {
+  border-color: var(--nm-border);
+  box-shadow: var(--nm-shadow);
+}
+
+.faq-accordion .accordion-button {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--nm-text);
+  background: var(--nm-white);
+  padding: 1.25rem 1.5rem;
+  box-shadow: none !important;
+}
+
+.faq-accordion .accordion-button:not(.collapsed) {
+  background: var(--nm-primary-xlight);
+  color: var(--nm-primary-dark);
+}
+
+.faq-accordion .accordion-body {
+  padding: 1.25rem 1.5rem;
+  font-size: 0.98rem;
+  color: var(--nm-text-muted);
+  line-height: 1.7;
+  border-top: 1px solid var(--nm-border-light);
+  background: var(--nm-white);
+}
+
+
 
 
 
