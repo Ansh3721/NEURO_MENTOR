@@ -1,6 +1,6 @@
-# 🧠 Neuro Mentor
+# 🧠 Neuro_Mentor
 
-**Neuro Mentor** is a full-stack web application designed to streamline interaction between mentors and their students. It provides authentication, student management, and secure access control—making it ideal for educational or mentoring platforms.
+**Neuro_Mentor** is a full-stack web application designed to streamline interaction between mentors and their students. It provides authentication, student management, and secure access control—making it ideal for educational or mentoring platforms.
 
 ---
 

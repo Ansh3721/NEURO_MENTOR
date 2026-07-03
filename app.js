@@ -113,8 +113,90 @@ app.use(async (req, res, next) => {
 });
 
 
-app.get("/", (req,res)=> {
-    res.render("./home.ejs");
+app.get("/", async (req, res) => {
+    try {
+        const Listing = require('./models/listing');
+        const PlatformRating = require('./models/platformRating');
+
+        const educatorCount = await Listing.countDocuments();
+        
+        const allListings = await Listing.find({});
+        const uniqueSubjects = new Set();
+        allListings.forEach(listing => {
+            if (listing.subjects) {
+                listing.subjects.forEach(sub => {
+                    if (sub.name) uniqueSubjects.add(sub.name.trim().toLowerCase());
+                });
+            }
+        });
+        const subjectCount = uniqueSubjects.size;
+
+        const platformRatings = await PlatformRating.find({}).populate('author', 'username');
+        let totalRating = 0;
+        let avgRating = 4.8;
+        if (platformRatings.length > 0) {
+            platformRatings.forEach(r => totalRating += r.rating);
+            avgRating = (totalRating / platformRatings.length).toFixed(1);
+        }
+
+        res.render("./home.ejs", {
+            educatorCount,
+            subjectCount,
+            avgRating,
+            ratingsCount: platformRatings.length,
+            ratings: platformRatings.slice(-6).reverse()
+        });
+    } catch (e) {
+        console.error("Error loading homepage data:", e);
+        res.render("./home.ejs", {
+            educatorCount: 0,
+            subjectCount: 0,
+            avgRating: 4.8,
+            ratingsCount: 0,
+            ratings: []
+        });
+    }
+});
+
+app.post("/platform-rating", async (req, res) => {
+    if (!req.isAuthenticated()) {
+        req.flash("error", "You must be logged in to rate the platform.");
+        return res.redirect("/login");
+    }
+    try {
+        const PlatformRating = require('./models/platformRating');
+        const { rating, feedback } = req.body;
+        
+        if (!rating || !feedback) {
+            req.flash("error", "Rating and feedback are required.");
+            return res.redirect("/");
+        }
+
+        const newRating = new PlatformRating({
+            rating: parseInt(rating),
+            feedback,
+            author: req.user._id
+        });
+        await newRating.save();
+        req.flash("success", "Thank you for rating Neuro_Mentor!");
+        res.redirect("/");
+    } catch (e) {
+        console.error("Error saving platform rating:", e);
+        req.flash("error", "Failed to submit rating.");
+        res.redirect("/");
+    }
+});
+
+app.get("/privacy", (req, res) => {
+    res.render("privacy.ejs");
+});
+
+app.get("/terms", (req, res) => {
+    res.render("terms.ejs");
+});
+
+app.get("/join", (req, res) => {
+    res.render("join.ejs");
 });
 
 app.get('/wallet', async (req, res) => {

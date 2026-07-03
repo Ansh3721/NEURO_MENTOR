@@ -1,127 +1,225 @@
 <% layout("/layouts/boilerplate") %>
-<% const bookingSummary = listing?.bookingSummary || {}; const walletBalance = listing?.walletBalance ?? 0; %>
-<div class="row mt-3">
-    <div class="col-8 offset-3">
-        <body>
-    <div class="d-flex align-items-center gap-2 flex-wrap">
-        <h3 class="mb-0"><%=listing.name %></h3>
-        <% if(listing.verifiedEducator){ %>
-            <span class="badge text-bg-success">Verified educator</span>
-        <% } %>
-    </div>
-</div>
-    <div class="card col-6 offset-3 show-card listing-card">
-        <img src="<%= listing.image.url %>" alt="image" class="card-img-top show-img profile-photo" >
+<% const bookingSummary = listing?.bookingSummary || {}; %>
+
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <!-- Back -->
+      <a href="/listings" class="btn btn-light btn-sm mb-3">
+        <i class="fa-solid fa-arrow-left me-1"></i>Back to Educators
+      </a>
+
+      <!-- Main profile card -->
+      <div class="show-card card">
+        <!-- Profile photo -->
+        <img src="<%= listing.image.url %>" alt="<%= listing.name %>" class="card-img-top show-img profile-photo">
+
         <div class="card-body">
-            <div class="card-text">
-                <p>
-                   <b> Educator type : </b><%= listing.educatorType || "Not specified" %> <br>
-                   <b> Location : </b><%= listing.location || "Not specified" %> <br>
-                   <b> Languages : </b><%= listing.languages || "Not specified" %> <br>
-                   <b> Pricing : </b><%= listing.pricing ? `₹${listing.pricing}/hr` : "Not specified" %> <br>
-                   <b> Bio : </b><%= listing.bio || "Not specified" %> <br>
-                </p>
+          <!-- Name & badges -->
+          <div class="d-flex align-items-center gap-2 flex-wrap mb-3">
+            <h3 class="mb-0 fw-bold"><%= listing.name %></h3>
+            <% if (listing.verifiedEducator) { %>
+              <span class="badge text-bg-success">
+                <i class="fa-solid fa-circle-check me-1"></i>Verified Educator
+              </span>
+            <% } %>
+          </div>
+
+          <!-- Quick info chips -->
+          <div class="d-flex flex-wrap gap-2 mb-4">
+            <span class="subject-badge">
+              <i class="fa-solid fa-user-tie"></i><%= listing.educatorType || "Educator" %>
+            </span>
+            <% if (listing.location) { %>
+              <span class="subject-badge">
+                <i class="fa-solid fa-location-dot"></i><%= listing.location %>
+              </span>
+            <% } %>
+            <% if (listing.languages) { %>
+              <span class="subject-badge">
+                <i class="fa-solid fa-language"></i><%= listing.languages %>
+              </span>
+            <% } %>
+            <span class="subject-badge" style="background:var(--nm-primary); color:#fff; border-color:transparent;">
+              <i class="fa-solid fa-indian-rupee-sign"></i>
+              <%= listing.pricing ? `₹${listing.pricing}/hr` : "Pricing on request" %>
+            </span>
+          </div>
+
+          <!-- Bio -->
+          <% if (listing.bio) { %>
+            <div class="mb-4">
+              <h5><i class="fa-solid fa-quote-left me-1"></i>About</h5>
+              <p style="color:var(--nm-text-muted); line-height:1.75;"><%= listing.bio %></p>
             </div>
-            <% if(listing.subjects && listing.subjects.length){ %>
-                <hr>
-                <h5>Subject expertise</h5>
-                <ul class="mb-0">
-                    <% for(let subject of listing.subjects){ %>
-                        <li><strong><%= subject.name %></strong> - <%= subject.level %></li>
-                    <% } %>
-                </ul>
-            <% } %>
-            <% if(listing.studentDetails){ %>
-                <hr>
-                <h5>Student educator details</h5>
-                <p class="mb-0">
-                    <b>Degree : </b><%= listing.studentDetails.degree %> <br>
-                    <b>College : </b><%= listing.studentDetails.college %> <br>
-                    <b>Year / Semester : </b><%= listing.studentDetails.yearSemester %> <br>
-                    <b>CGPA / Pointer : </b><%= listing.studentDetails.cgpaPointer %> <br>
-                    <b>Marks / Grade : </b><%= listing.studentDetails.subjectGrades %>
-                </p>
-            <% } %>
-            <% if(listing.professionalDetails){ %>
-                <hr>
-                <h5>Professional educator details</h5>
-                <p class="mb-0">
-                    <b>Job role : </b><%= listing.professionalDetails.jobRole %> <br>
-                    <b>Company : </b><%= listing.professionalDetails.companyName %> <br>
-                    <b>Experience : </b><%= listing.professionalDetails.yearsExperience %> years <br>
-                    <b>Previous experience : </b><%= listing.professionalDetails.previousExperience || "Not shared" %>
-                </p>
-            <% } %>
-            <% if(listing.socialProfiles){ %>
-                <hr>
-                <h5>Social profiles</h5>
-                <p class="mb-0">
-                    <% if(listing.socialProfiles.linkedin){ %><b>LinkedIn : </b><a href="<%= listing.socialProfiles.linkedin %>" target="_blank" rel="noreferrer"><%= listing.socialProfiles.linkedin %></a><br><% } %>
-                    <% if(listing.socialProfiles.github){ %><b>GitHub : </b><a href="<%= listing.socialProfiles.github %>" target="_blank" rel="noreferrer"><%= listing.socialProfiles.github %></a><br><% } %>
-                    <% if(listing.socialProfiles.instagram){ %><b>Instagram : </b><a href="<%= listing.socialProfiles.instagram %>" target="_blank" rel="noreferrer"><%= listing.socialProfiles.instagram %></a><br><% } %>
-                    <% if(listing.socialProfiles.portfolio){ %><b>Portfolio : </b><a href="<%= listing.socialProfiles.portfolio %>" target="_blank" rel="noreferrer"><%= listing.socialProfiles.portfolio %></a><% } %>
-                </p>
-            <% } %>
-            <% if(listing.availability){ %>
-                <hr>
-                <h5>Availability</h5>
-                <p class="mb-0">
-                    <b>Days : </b><%= Array.isArray(listing.availability.days) ? listing.availability.days.join(", ") : listing.availability.days %> <br>
-                    <b>Time slots : </b><%= listing.availability.timeSlots %>
-                </p>
-            <% } %>
-            <% if(listing.identityVerification){ %>
-                <hr>
-                <h5>Identity verification</h5>
-                <p class="mb-0">
-                    <b>ID type : </b><%= listing.identityVerification.idType %> <br>
-                    <b>Status : </b><%= listing.verifiedEducator ? "Verified educator" : "Pending review" %>
-                </p>
-            <% } %>
+          <% } %>
+
+          <!-- Subjects -->
+          <% if (listing.subjects && listing.subjects.length) { %>
+            <div class="mb-4">
+              <h5><i class="fa-solid fa-book-open me-1"></i>Subject Expertise</h5>
+              <div class="d-flex flex-wrap gap-2">
+                <% for (let subject of listing.subjects) { %>
+                  <span class="subject-badge">
+                    <%= subject.name %>
+                    <span style="opacity:0.6; font-size:0.75rem; font-weight:500;">· <%= subject.level %></span>
+                  </span>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+
+          <!-- Availability -->
+          <% if (listing.availability) { %>
+            <div class="mb-4">
+              <h5><i class="fa-solid fa-calendar-days me-1"></i>Availability</h5>
+              <div class="d-flex flex-wrap gap-2 mb-2">
+                <% const days = Array.isArray(listing.availability.days) ? listing.availability.days : [listing.availability.days]; %>
+                <% for (let day of days) { %>
+                  <span class="subject-badge"><%= day %></span>
+                <% } %>
+              </div>
+              <p style="color:var(--nm-text-muted); margin:0;">
+                <i class="fa-regular fa-clock me-1"></i><%= listing.availability.timeSlots %>
+              </p>
+            </div>
+          <% } %>
+
+          <!-- Student details -->
+          <% if (listing.studentDetails) { %>
+            <div class="mb-4">
+              <h5><i class="fa-solid fa-graduation-cap me-1"></i>Academic Background</h5>
+              <div class="row g-2">
+                <div class="col-sm-6"><div class="booking-pill"><span>Degree</span><strong><%= listing.studentDetails.degree %></strong></div></div>
+                <div class="col-sm-6"><div class="booking-pill"><span>College</span><strong><%= listing.studentDetails.college %></strong></div></div>
+                <div class="col-sm-6"><div class="booking-pill"><span>Year / Semester</span><strong><%= listing.studentDetails.yearSemester %></strong></div></div>
+                <div class="col-sm-6"><div class="booking-pill"><span>CGPA / Pointer</span><strong><%= listing.studentDetails.cgpaPointer %></strong></div></div>
+              </div>
+            </div>
+          <% } %>
+
+          <!-- Professional details -->
+          <% if (listing.professionalDetails) { %>
+            <div class="mb-4">
+              <h5><i class="fa-solid fa-briefcase me-1"></i>Professional Background</h5>
+              <div class="row g-2">
+                <div class="col-sm-6"><div class="booking-pill"><span>Job Role</span><strong><%= listing.professionalDetails.jobRole %></strong></div></div>
+                <div class="col-sm-6"><div class="booking-pill"><span>Company</span><strong><%= listing.professionalDetails.companyName %></strong></div></div>
+                <div class="col-sm-12"><div class="booking-pill"><span>Experience</span><strong><%= listing.professionalDetails.yearsExperience %> years</strong></div></div>
+              </div>
+            </div>
+          <% } %>
+
+          <!-- Social profiles -->
+          <% if (listing.socialProfiles) { %>
+            <div class="mb-4">
+              <h5><i class="fa-solid fa-share-nodes me-1"></i>Social Profiles</h5>
+              <div class="d-flex flex-wrap gap-2">
+                <% if (listing.socialProfiles.linkedin) { %>
+                  <a href="<%= listing.socialProfiles.linkedin %>" target="_blank" rel="noreferrer" class="subject-badge" style="text-decoration:none;">
+                    <i class="fa-brands fa-linkedin"></i>LinkedIn
+                  </a>
+                <% } %>
+                <% if (listing.socialProfiles.github) { %>
+                  <a href="<%= listing.socialProfiles.github %>" target="_blank" rel="noreferrer" class="subject-badge" style="text-decoration:none;">
+                    <i class="fa-brands fa-github"></i>GitHub
+                  </a>
+                <% } %>
+                <% if (listing.socialProfiles.instagram) { %>
+                  <a href="<%= listing.socialProfiles.instagram %>" target="_blank" rel="noreferrer" class="subject-badge" style="text-decoration:none;">
+                    <i class="fa-brands fa-instagram"></i>Instagram
+                  </a>
+                <% } %>
+                <% if (listing.socialProfiles.portfolio) { %>
+                  <a href="<%= listing.socialProfiles.portfolio %>" target="_blank" rel="noreferrer" class="subject-badge" style="text-decoration:none;">
+                    <i class="fa-solid fa-globe"></i>Portfolio
+                  </a>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+
+          <!-- Identity verification -->
+          <% if (listing.identityVerification) { %>
+            <div class="mb-2">
+              <h5><i class="fa-solid fa-id-card me-1"></i>Identity Verification</h5>
+              <div class="booking-pill d-inline-flex gap-2">
+                <span>ID Type</span>
+                <strong><%= listing.identityVerification.idType %></strong>
+                <% if (listing.verifiedEducator) { %>
+                  <span class="badge text-bg-success ms-2">Verified</span>
+                <% } else { %>
+                  <span style="color:var(--nm-warning); font-size:0.82rem; font-weight:600;">⏳ Pending review</span>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+
+        </div><!-- card-body -->
+      </div><!-- show-card -->
+
+      <!-- Owner actions -->
+      <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+        <div class="btns mt-3">
+          <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">
+            <i class="fa-solid fa-pen me-1"></i>Edit Profile
+          </a>
+          <form action="/listings/<%= listing._id %>?_method=DELETE" method="post" class="m-0">
+            <button class="btn btn-outline-dark">
+              <i class="fa-solid fa-trash me-1"></i>Delete
+            </button>
+          </form>
         </div>
-    </div>
 
-    <% if( currUser && currUser._id.equals(listing.owner._id)){ %>
-    <div class="btns mb-3">
-        <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark  col-1 offset-3 add-btn">Edit</a>
-        <form action="/listings/<%=listing._id %>?_method=DELETE" method="post">
-            <button class="btn btn-outline-dark offset-5"> Delete</button>
-        </form>
-    </div>
+        <!-- Problems / Questions section -->
+        <div class="problem-section mt-4">
+          <h4 class="fw-bold mb-1" style="color:var(--nm-text);">
+            <i class="fa-solid fa-circle-question me-2" style="color:var(--nm-primary);"></i>Any Problem?
+          </h4>
+          <p class="text-muted mb-3" style="font-size:0.92rem;">
+            Your query or problem is safe with us and will resolve asap.
+          </p>
 
-    
-
-    <div class="col-8 offset-3 mb-3">
-        <hr>
-        <h4>Do you have any problem : </h4>
-        <form action="/listings/<%= listing._id %>/stu_problem" method="post" novalidate class="needs-validation">
-            <div class="mb-3 mt-3">
-                <label for="rating" class="form-label">Emergency</label>
-                <input type="range" min="1" max="5" id="rating" name="stu_problem[rating]">
+          <form action="/listings/<%= listing._id %>/stu_problem" method="post" novalidate class="needs-validation mb-4">
+            <div class="mb-3">
+              <label for="rating" class="form-label">
+                Urgency Level <span id="rating-display" style="color:var(--nm-primary); font-weight:700;"></span>
+              </label>
+              <input type="range" min="1" max="5" id="rating" name="stu_problem[rating]"
+                class="form-range" style="accent-color:var(--nm-primary);"
+                oninput="document.getElementById('rating-display').textContent = this.value + '/5'">
             </div>
-            <div class="mb-3 mt-3">
-                <label for="problem" class="form-label">problem</label>
-                <textarea name="stu_problem[problem]" id="problem" cols="30" rows="5" class="form-control" required></textarea>
-                <div class="invalid-feedback">please submit some problem...</div>
+            <div class="mb-3">
+              <label for="problem" class="form-label">Describe Your Problem</label>
+              <textarea name="stu_problem[problem]" id="problem" rows="4"
+                class="form-control" placeholder="Describe the issue or problem you are facing..." required></textarea>
+              <div class="invalid-feedback">Please describe the problem before submitting.</div>
             </div>
-            <button class="btn btn-outline-dark">Submit</button>
-        </form>
-    </div>
+            <button class="btn btn-primary">
+              <i class="fa-solid fa-paper-plane me-2"></i>Submit Problem
+            </button>
+          </form>
 
-     <div class="problem col-8 offset-3">
-        <div class="row">
-        <h4>Your problems :</h4>
-        <% for(stu_problem of listing.stu_problems) {%>
-            <div class="card col-5 ms-3 mb-3">
-                <div class="card-text"><%= stu_problem.problem %></div>
-                <form class="mb-2" method="post" action="/listings/<%= listing._id %>/stu_problem/<%= stu_problem._id %>?_method=DELETE">
-                    <button class="btn btn-outline-dark btn-sm">Delete</button>
+          <!-- Existing problems -->
+          <% if (listing.stu_problems && listing.stu_problems.length) { %>
+            <h6 class="fw-bold mb-2" style="color:var(--nm-text-muted);">Submitted Problems</h6>
+            <% for (let stu_problem of listing.stu_problems) { %>
+              <div class="problem-card d-flex justify-content-between align-items-start gap-2">
+                <p class="mb-0" style="color:var(--nm-text); flex:1;"><%= stu_problem.problem %></p>
+                <form method="post" action="/listings/<%= listing._id %>/stu_problem/<%= stu_problem._id %>?_method=DELETE" class="m-0 flex-shrink-0">
+                  <button class="btn btn-sm btn-outline-dark">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
                 </form>
-            </div>
-        <% } %>
-       </div>
-    </div>  
+              </div>
+            <% } %>
+          <% } else { %>
+            <p style="color:var(--nm-text-muted); font-size:0.9rem;">No problems submitted yet.</p>
+          <% } %>
+        </div>
+      <% } %>
 
+    </div>
+  </div>
 </div>
-<% } %>
-

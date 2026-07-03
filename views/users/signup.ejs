@@ -1,26 +1,40 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row">
-    <h1 class="mt-3 mb-3 col-6 offset-3">SingUp on <i>NUERO_MENTOR</i> <i class="fa-solid fa-graduation-cap"></i></h1>
-<div class="col-6 offset-3">
+<div class="auth-shell">
+  <div class="auth-card">
+    <div class="auth-icon">
+      <i class="fa-solid fa-user-plus"></i>
+    </div>
+    <h2>Create an account</h2>
+    <p>Join Neuro_Mentor and start your learning journey</p>
+
     <form action="/signup" method="post" class="needs-validation" novalidate>
-        <div class="mb-3">
-            <label for="username" class="form-lable">Username</label>
-            <input type="text" name = "username" id="username" class="form-control" required>
-            <div class="invalid-feedback">Username required</div>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-lable">Email</label>
-            <input type="email" name = "email" id="email" class="form-control" required>
-            <div class="invalid-feedback">Email required</div>
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-lable">Password</label>
-            <input type="password" name = "password" id="password" class="form-control" required>
-            <div class="invalid-feedback">Password required</div>
-        </div>
-        <button class="btn btn-dark mb-3 add-btn">Sign Up</button>
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" name="username" id="username" class="form-control"
+          placeholder="Choose a username" required autocomplete="username">
+        <div class="invalid-feedback">Username is required.</div>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" name="email" id="email" class="form-control"
+          placeholder="Enter your email" required autocomplete="email">
+        <div class="invalid-feedback">A valid email is required.</div>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" id="password" class="form-control"
+          placeholder="Create a strong password" required autocomplete="new-password">
+        <div class="invalid-feedback">Password is required.</div>
+      </div>
+      <button type="submit" class="btn btn-primary w-100 mb-3" style="border-radius:999px !important; padding:0.75rem !important; font-size:1rem;">
+        <i class="fa-solid fa-user-plus me-2"></i>Create Account
+      </button>
     </form>
 
-</div>
+    <p class="text-center mb-0" style="color:var(--nm-text-muted); font-size:0.9rem;">
+      Already have an account?
+      <a href="/login" style="color:var(--nm-primary); font-weight:700; text-decoration:none;">Log In</a>
+    </p>
+  </div>
 </div>

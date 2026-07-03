@@ -1,7 +1,468 @@
-<% layout("layouts/boilerplate") %>
-<div class="row">
-    <div class="col-6 offset-3">
-        <h1>Welcome to the NUERO_MENTOT <i class="fa-solid fa-graduation-cap"></i></a></h1>
-        <p>coming soon...</p>
+<% layout("/layouts/boilerplate") %>
+<%
+  const safeEducatorCount = typeof educatorCount !== 'undefined' ? educatorCount : 0;
+  const safeSubjectCount = typeof subjectCount !== 'undefined' ? subjectCount : 0;
+  const safeAvgRating = typeof avgRating !== 'undefined' ? avgRating : '4.8';
+  const safeRatingsCount = typeof ratingsCount !== 'undefined' ? ratingsCount : 0;
+  const safeRatings = typeof ratings !== 'undefined' ? ratings : [];
+%>
+
+<!-- Hero Section -->
+<div class="nm-hero">
+  <div class="nm-hero-split">
+
+    <!-- LEFT: Content -->
+    <div class="nm-hero-content-col">
+      <div class="nm-hero-badge">
+        <i class="fa-solid fa-graduation-cap"></i>
+        India's Premier Mentorship Platform
+      </div>
+      <h1>
+        Learn from the<br><span class="highlight">best minds</span><br>around you
+      </h1>
+      <p>
+        Connect with verified student and professional educators.<br>
+        Get personalized mentorship, build skills, and unlock your true potential.
+      </p>
+      <div class="nm-hero-actions">
+        <a href="/listings" class="btn btn-primary">
+          <i class="fa-solid fa-compass me-2"></i>Browse Educators
+        </a>
+        <a href="/listings/new" class="btn btn-outline-dark">
+          Become an Educator <i class="fa-solid fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+      <div class="nm-stats">
+        <div class="nm-stat-item">
+          <strong><%= safeEducatorCount %></strong>
+          <span>Educators</span>
+        </div>
+        <div class="nm-stat-item">
+          <strong><%= safeSubjectCount %></strong>
+          <span>Subjects</span>
+        </div>
+        <div class="nm-stat-item">
+          <strong><%= safeAvgRating %>★</strong>
+          <span>Avg Rating</span>
+        </div>
+      </div>
     </div>
+
+    <!-- RIGHT: Logo -->
+    <div class="nm-hero-logo-col">
+      <img
+        src="/neuro_mentor%20logo.png"
+        alt="Neuro_Mentor Logo"
+        class="nm-hero-logo-img"
+      >
+    </div>
+
+  </div>
 </div>
+
+<!-- The Intuition / Story Section -->
+<div class="home-section container">
+  <h2 class="section-title">The <span>Intuition</span> Behind Neuro_Mentor</h2>
+  <p class="text-center text-muted mx-auto mb-5" style="max-width: 680px; font-size: 1.05rem;">
+    As engineering students, we've all faced the late-night exam dilemma: a complex topic is due tomorrow, online tutorials are confusing, and university professors are unreachable. Neuro_Mentor was built to solve this exact issue.
+  </p>
+
+  <div class="dilemma-container">
+    <!-- Dilemma Card -->
+    <div class="dilemma-card bad">
+      <div class="dilemma-header">
+        <i class="fa-solid fa-face-frown"></i>
+        The Exam-Night Nightmare
+      </div>
+      <ul class="dilemma-list">
+        <li>
+          <i class="fa-solid fa-xmark"></i>
+          <div>
+            <strong>Confusing Online Resources</strong>
+            <span>Hours spent reading boring, confusing articles or searching YouTube for a specific concept.</span>
+          </div>
+        </li>
+        <li>
+          <i class="fa-solid fa-xmark"></i>
+          <div>
+            <strong>Expensive Package Subscriptions</strong>
+            <span>Forced to purchase an entire course or full-year subscription just to learn one chapter.</span>
+          </div>
+        </li>
+        <li>
+          <i class="fa-solid fa-xmark"></i>
+          <div>
+            <strong>No Instant Support</strong>
+            <span>Unable to contact teachers or classmates at 1 AM for immediate doubt resolution.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Solution Card -->
+    <div class="dilemma-card good">
+      <div class="dilemma-header">
+        <i class="fa-solid fa-face-smile"></i>
+        The Neuro_Mentor Solution
+      </div>
+      <ul class="dilemma-list">
+        <li>
+          <i class="fa-solid fa-check"></i>
+          <div>
+            <strong>Pay-as-you-learn pricing</strong>
+            <span>Book a qualified educator for just 1 or 2 hours. Pay only for the time you need, with no subscription lock-ins.</span>
+          </div>
+        </li>
+        <li>
+          <i class="fa-solid fa-check"></i>
+          <div>
+            <strong>Knowledge over degrees</strong>
+            <span>Learn from senior students who recently aced the exam or professional experts who understand the practical landscape.</span>
+          </div>
+        </li>
+        <li>
+          <i class="fa-solid fa-check"></i>
+          <div>
+            <strong>Personalized 1-on-1 tutoring</strong>
+            <span>Ask questions directly in an interactive session tailored specifically to the topics you find hardest.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- How It Works Section -->
+<div class="home-section bg-white border-top border-bottom">
+  <div class="container">
+    <h2 class="section-title">How <span>Neuro_Mentor</span> Works</h2>
+    
+    <div class="how-grid">
+      <!-- Step 1 -->
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <div class="step-icon">
+          <i class="fa-solid fa-user-plus"></i>
+        </div>
+        <h4>Register Profile</h4>
+        <p>
+          Create your account. Register either as a Student searching for help or register as an Educator setting your own hourly pricing.
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <div class="step-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <h4>Search & Match</h4>
+        <p>
+          Browse educators by their type (Student vs Professional), pricing, subject expertise, location, and available time slots.
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <div class="step-icon">
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+        <h4>Book & Learn</h4>
+        <p>
+          Schedule hourly sessions to clear your exam doubts, master tough subjects, and prep efficiently without subscriptions.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Extra feature description section -->
+<div class="home-section container">
+  <div class="feature-grid-nm">
+
+    <!-- LEFT: Illustration -->
+    <div class="d-flex align-items-center justify-content-center" style="min-height: 100%;">
+      <img
+        src="/why_choose.png"
+        alt="Mentorship Illustration"
+        style="
+          width: 100%;
+          max-width: 420px;
+          height: auto;
+          object-fit: contain;
+          border-radius: var(--nm-radius-xl);
+          box-shadow: var(--nm-shadow-lg);
+        "
+      >
+    </div>
+
+    <!-- RIGHT: Why choose us text -->
+    <div class="feature-text-block">
+      <span class="feature-tag">Empowering Education</span>
+      <h3>Why choose Neuro_Mentor?</h3>
+      <ul class="feature-points">
+        <li>
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <div>
+            <strong>Flexible Hours</strong>
+            <span>Choose and adjust session hours to match your exam schedule and timeline.</span>
+          </div>
+        </li>
+        <li>
+          <i class="fa-solid fa-indian-rupee-sign"></i>
+          <div>
+            <strong>Budget Friendly</strong>
+            <span>Prices are customized by educators so you can find options matching your student budget.</span>
+          </div>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-nodes"></i>
+          <div>
+            <strong>Community Driven</strong>
+            <span>Mentors can be your own college seniors or experienced industry professionals.</span>
+          </div>
+        </li>
+      </ul>
+      <a href="/listings" class="btn btn-primary rounded-pill px-4 py-2">
+        Start Browsing Mentors
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Mission & Vision Section -->
+<div class="home-section bg-white border-top">
+  <div class="container">
+    <h2 class="section-title">Our <span>Mission</span> & <span>Vision</span></h2>
+    
+    <div class="mv-container">
+      <!-- Mission -->
+      <div class="mv-card">
+        <div class="mv-icon-wrap">
+          <i class="fa-solid fa-bullseye"></i>
+        </div>
+        <h3>Our Mission</h3>
+        <p>
+          To make personalized, high-quality mentorship instantly accessible to every student, everywhere, at any hour, without the burden of expensive course packages or long-term subscriptions. We strive to break down academic barriers, making learning stress-free and highly collaborative.
+        </p>
+      </div>
+
+      <!-- Vision -->
+      <div class="mv-card">
+        <div class="mv-icon-wrap">
+          <i class="fa-solid fa-eye"></i>
+        </div>
+        <h3>Our Vision</h3>
+        <p>
+          To build a global peer-to-peer educational network where knowledge flows freely. By bridging the gap between seniors, industry professionals, and students, we envision a world where no student has to skip a topic or compromise their learning due to lack of timely support.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Platform Ratings Section -->
+<div class="home-section bg-white border-top border-bottom">
+  <div class="container">
+    <h2 class="section-title">What Users Say About <span>Neuro_Mentor</span></h2>
+    <p class="text-center text-muted mx-auto mb-5" style="max-width: 600px;">
+      Read real reviews and feedback from our community of students and mentors.
+    </p>
+
+    <div class="rating-section-grid">
+      <!-- LEFT: Summary & Action -->
+      <div class="rating-summary-card">
+        <div class="rating-big-num"><%= safeAvgRating %></div>
+        <div class="rating-stars-wrap">
+          <% const roundedRating = Math.round(parseFloat(safeAvgRating)); %>
+          <% for(let i = 1; i <= 5; i++) { %>
+            <i class="<%= i <= roundedRating ? 'fa-solid' : 'fa-regular' %> fa-star"></i>
+          <% } %>
+        </div>
+        <div class="rating-total-count">Based on <%= safeRatingsCount %> real reviews</div>
+
+        <hr style="width: 100%; border-color: var(--nm-border-light); margin: 1rem 0 1.5rem 0;">
+
+        <% if (currUser) { %>
+          <h5 class="fw-bold mb-3" style="font-size:1.1rem; color:var(--nm-text);">Rate Our Platform</h5>
+          <form action="/platform-rating" method="POST" style="width: 100%;">
+            <div class="mb-3 text-start">
+              <label for="ratingSelect" class="form-label" style="font-size:0.88rem; font-weight:600; color:var(--nm-text);">Select Rating</label>
+              <select name="rating" id="ratingSelect" class="form-select form-select-sm" required>
+                <option value="5">⭐⭐⭐⭐⭐ (5 - Excellent)</option>
+                <option value="4">⭐⭐⭐⭐ (4 - Very Good)</option>
+                <option value="3">⭐⭐⭐ (3 - Good)</option>
+                <option value="2">⭐⭐ (2 - Average)</option>
+                <option value="1">⭐ (1 - Poor)</option>
+              </select>
+            </div>
+            <div class="mb-3 text-start">
+              <label for="feedbackText" class="form-label" style="font-size:0.88rem; font-weight:600; color:var(--nm-text);">Your Feedback</label>
+              <textarea name="feedback" id="feedbackText" rows="3" class="form-control form-control-sm" placeholder="Tell us about your experience..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm w-100" style="border-radius:999px !important; padding:0.5rem !important;">Submit Feedback</button>
+          </form>
+        <% } else { %>
+          <div class="text-center py-2">
+            <p style="font-size:0.9rem; color:var(--nm-text-muted); margin-bottom:1rem;">Want to rate the platform?</p>
+            <a href="/login" class="btn btn-outline-dark btn-sm rounded-pill px-4">Log In to Rate Us</a>
+          </div>
+        <% } %>
+      </div>
+
+      <!-- RIGHT: Review List -->
+      <div class="feedback-list">
+        <% if (safeRatings && safeRatings.length > 0) { %>
+          <% safeRatings.forEach(r => { %>
+            <div class="feedback-card">
+              <div class="feedback-card-header">
+                <div class="feedback-user">
+                  <i class="fa-solid fa-circle-user"></i>
+                  <%= r.author ? r.author.username : 'Anonymous User' %>
+                </div>
+                <div class="feedback-stars">
+                  <% for(let i = 1; i <= 5; i++) { %>
+                    <i class="<%= i <= r.rating ? 'fa-solid' : 'fa-regular' %> fa-star"></i>
+                  <% } %>
+                </div>
+              </div>
+              <p class="feedback-text"><%= r.feedback %></p>
+              <small class="text-muted" style="font-size:0.75rem; display:block; margin-top:0.5rem;">
+                <%= new Date(r.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) %>
+              </small>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <div class="text-center py-5 bg-light rounded-3 border border-dashed" style="width: 100%;">
+            <i class="fa-regular fa-comment-dots" style="font-size:2.5rem; color:var(--nm-primary); opacity:0.4;"></i>
+            <h5 class="mt-3 fw-bold">No reviews yet</h5>
+            <p class="text-muted mb-0" style="font-size:0.9rem;">Be the first to share your thoughts on the platform!</p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Contact Us Section -->
+<div id="contact" class="home-section container">
+  <h2 class="section-title">Get in <span>Touch</span> with Us</h2>
+  <p class="text-center text-muted mx-auto mb-5" style="max-width: 600px;">
+    Have any questions, feedback, or need help finding the right mentor? Fill out the form or reach out to us directly.
+  </p>
+
+  <div class="contact-grid">
+    <!-- Contact Info Card -->
+    <div class="contact-info-card">
+      <div>
+        <h3>Contact Information</h3>
+        <p style="opacity: 0.85; font-size: 0.93rem;">We are here to assist you anytime.</p>
+        
+        <ul class="contact-details">
+          <li class="contact-detail-item">
+            <i class="fa-solid fa-envelope"></i>
+            <span>anshmishra3721@gmail.com</span>
+          </li>
+          <li class="contact-detail-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>+91 83569 98765</span>
+          </li>
+          <li class="contact-detail-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Mumbai, India</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div>
+        <p style="opacity: 0.6; font-size: 0.85rem; margin: 0;">
+          Designed to support late-night preps and academic breakthroughs.
+        </p>
+      </div>
+    </div>
+
+    <!-- Contact Form Card -->
+    <div class="contact-form-card">
+      <form id="contact-form" novalidate>
+        <input type="hidden" name="access_key" value="c93080b5-e7f7-433a-9ab6-c2d624c100ab">
+        <input type="hidden" name="from_name" value="Neuro_Mentor Contact Form">
+        
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="contact-name" class="form-label">Full Name</label>
+            <input type="text" id="contact-name" name="name" class="form-control" placeholder="Your Name" required>
+          </div>
+          <div class="col-md-6">
+            <label for="contact-email" class="form-label">Email Address</label>
+            <input type="email" id="contact-email" name="email" class="form-control" placeholder="yourname@example.com" required>
+          </div>
+          <div class="col-12">
+            <label for="contact-subject" class="form-label">Subject</label>
+            <input type="text" id="contact-subject" name="subject" class="form-control" placeholder="What is this regarding?" required>
+          </div>
+          <div class="col-12">
+            <label for="contact-message" class="form-label">Message</label>
+            <textarea id="contact-message" name="message" rows="5" class="form-control" placeholder="Tell us how we can help..." required></textarea>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary px-4 py-2 mt-2" style="border-radius: 999px !important; box-shadow: 0 4px 14px var(--nm-primary-glow);">
+              <i class="fa-solid fa-paper-plane me-2"></i>Send Message
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = this;
+    
+    // Simple validation check
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+    
+    const btn = form.querySelector('button[type="submit"]');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i>Sending...';
+    btn.disabled = true;
+    
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: json
+    })
+    .then(async (response) => {
+      let jsonRes = await response.json();
+      if (response.status == 200) {
+        alert("Thank you! Your message has been sent successfully.");
+        form.reset();
+      } else {
+        alert(jsonRes.message || "Something went wrong. Please try again.");
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      alert("Submission failed. Please check your internet connection.");
+    })
+    .finally(() => {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    });
+  });
+</script>
+
+

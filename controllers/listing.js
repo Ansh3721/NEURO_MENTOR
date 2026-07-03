@@ -40,8 +40,18 @@ function applyUploadedFiles(listing, files = {}) {
 
 //index 
 module.exports.index = async (req,res) => {
-    const allListings = await Listing.find();
-    res.render("listings/index.ejs",{allListings})
+    let query = {};
+    const searchVal = req.query.q ? req.query.q.trim() : "";
+    if (searchVal) {
+        query = {
+            $or: [
+                { name: { $regex: searchVal, $options: "i" } },
+                { "subjects.name": { $regex: searchVal, $options: "i" } }
+            ]
+        };
+    }
+    const allListings = await Listing.find(query);
+    res.render("listings/index.ejs", { allListings, searchVal });
 };
 
 //new
