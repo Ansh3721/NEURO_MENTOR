@@ -1,6 +1,30 @@
 (() => {
   'use strict';
 
+  // ========== SCROLL ANIMATIONS ==========
+  // Initialize Intersection Observer for scroll animations
+  if (typeof IntersectionObserver !== 'undefined') {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Find all elements with scroll-animate class
+    document.addEventListener('DOMContentLoaded', () => {
+      const scrollElements = document.querySelectorAll('.scroll-animate');
+      scrollElements.forEach(el => observer.observe(el));
+    });
+  }
+
   const forms = document.querySelectorAll('.needs-validation');
 
   Array.from(forms).forEach((form) => {

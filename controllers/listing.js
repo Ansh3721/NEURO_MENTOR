@@ -61,17 +61,7 @@ module.exports.new = (req,res)=>{
 
 //create
 module.exports.create =  async (req, res) => {
-    // double-check: prevent creating a second listing for the same user
-    if (req.user) {
-        const existing = await Listing.findOne({ owner: req.user._id });
-        if (existing) {
-            req.flash('error', 'You already have an educator profile.');
-            return res.redirect(`/listings/${existing._id}`);
-        }
-    }
-
     const listing = new Listing(req.body.listing);
-    listing.email = req.body.listing.email || req.user.email;
     applyUploadedFiles(listing, req.files);
     listing.owner = req.user._id;
     await listing.save();

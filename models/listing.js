@@ -4,7 +4,6 @@ const stu_problem = require('./stu_problem.js');
 
 
 const listingSchema = new Schema ({
-    email : String,  
     name : String ,
     bio : String ,
     location : String ,
@@ -80,7 +79,7 @@ const listingSchema = new Schema ({
       type:Schema.Types.ObjectId,
       ref: "User",
     }
-},{ strict: false });
+});
 
 
 listingSchema.post("findOneAndDelete",async (listing)=>{

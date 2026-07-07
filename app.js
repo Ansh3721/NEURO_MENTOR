@@ -17,6 +17,7 @@ const LocalStrategy = require("passport-local");
 const multer = require("multer");
 const User = require("./models/user.js");
 const StudentProfile = require("./models/studentProfile.js");
+const Listing = require("./models/listing.js");
 
 const listingRouter = require("./routs/listing.js");
 const reviewRouter = require("./routs/review.js");
@@ -203,9 +204,6 @@ app.get('/wallet', async (req, res) => {
     if (!req.user) {
         return res.redirect('/login');
     }
-
-    const StudentProfile = require('./models/studentProfile');
-    const Listing = require('./models/listing');
 
     const studentProfile = await StudentProfile.findOne({ owner: req.user._id });
     const educatorProfile = await Listing.findOne({ owner: req.user._id });

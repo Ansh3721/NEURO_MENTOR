@@ -7,6 +7,25 @@ const getInitials = (fullName = '') => {
   return `${words[0][0]}${words[words.length - 1][0]}`.toUpperCase();
 };
 
+const initializeNotificationPreferences = (profile) => {
+  if (!profile.notificationPreferences) {
+    profile.notificationPreferences = {
+      emailNotifications: true,
+      sessionReminders: true,
+      promotionalNotifications: false,
+    };
+  }
+};
+
+const updateProfilePhoto = (profile, file) => {
+  if (file) {
+    profile.profilePhoto = {
+      url: file.path,
+      filename: file.filename,
+    };
+  }
+};
+
 const buildProfileViewModel = (profile) => {
   if (!profile) return null;
 
@@ -62,20 +81,8 @@ module.exports.create = async (req, res) => {
     profile.owner = req.user._id;
   }
 
-  if (req.file) {
-    profile.profilePhoto = {
-      url: req.file.path,
-      filename: req.file.filename,
-    };
-  }
-
-  if (!profile.notificationPreferences) {
-    profile.notificationPreferences = {
-      emailNotifications: true,
-      sessionReminders: true,
-      promotionalNotifications: false,
-    };
-  }
+  updateProfilePhoto(profile, req.file);
+  initializeNotificationPreferences(profile);
 
   await profile.save();
   req.flash('success', existing ? 'Your profile has been updated.' : 'Your student profile has been created.');
@@ -104,9 +111,7 @@ module.exports.update = async (req, res) => {
   if (!profile) {
     const createdProfile = new StudentProfile(payload);
     createdProfile.owner = req.user._id;
-    if (req.file) {
-      createdProfile.profilePhoto = { url: req.file.path, filename: req.file.filename };
-    }
+    updateProfilePhoto(createdProfile, req.file);
     await createdProfile.save();
     if (req.headers.accept && req.headers.accept.includes('application/json')) {
       return res.json({ success: true, profile: buildProfileViewModel(createdProfile) });
@@ -116,20 +121,8 @@ module.exports.update = async (req, res) => {
 
   Object.assign(profile, payload);
 
-  if (req.file) {
-    profile.profilePhoto = {
-      url: req.file.path,
-      filename: req.file.filename,
-    };
-  }
-
-  if (!profile.notificationPreferences) {
-    profile.notificationPreferences = {
-      emailNotifications: true,
-      sessionReminders: true,
-      promotionalNotifications: false,
-    };
-  }
+  updateProfilePhoto(profile, req.file);
+  initializeNotificationPreferences(profile);
 
   await profile.save();
 
@@ -148,12 +141,7 @@ module.exports.updatePhoto = async (req, res) => {
     return res.status(404).json({ success: false, message: 'No profile found.' });
   }
 
-  if (req.file) {
-    profile.profilePhoto = {
-      url: req.file.path,
-      filename: req.file.filename,
-    };
-  }
+  updateProfilePhoto(profile, req.file);
 
   await profile.save();
   res.json({ success: true, profile: buildProfileViewModel(profile) });

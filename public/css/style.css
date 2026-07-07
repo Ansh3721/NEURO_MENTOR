@@ -162,6 +162,38 @@ body {
 }
 
 /* ============================================================
+   MOBILE RESPONSIVE - Navbar
+   ============================================================ */
+@media (max-width: 768px) {
+  .navbar {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-shadow: 0 2px 12px rgba(99, 102, 241, 0.12) !important;
+  }
+
+  .navbar-collapse {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .navbar-collapse.bg-white {
+    background: #ffffff !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .navbar-nav {
+    background: #ffffff !important;
+  }
+
+  .navbar-toggler:focus {
+    box-shadow: none !important;
+  }
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 .f-info {
@@ -1525,6 +1557,103 @@ body {
   0%, 100% { box-shadow: 0 0 0 0 var(--nm-primary-glow); }
   50%       { box-shadow: 0 0 0 8px transparent; }
 }
+
+/* Scroll animations */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounceIn {
+  from { opacity: 0; transform: translateY(20px); }
+  50%  { transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotateIn {
+  from { opacity: 0; transform: rotate(-10deg) scale(0.95); }
+  to   { opacity: 1; transform: rotate(0) scale(1); }
+}
+
+/* Scroll animation classes */
+.scroll-animate {
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-animate.fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.scroll-animate.fade-in-up.animated {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.scroll-animate.fade-in {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.scroll-animate.fade-in.animated {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.scroll-animate.slide-in-left {
+  animation: slideInLeft 0.7s ease forwards;
+}
+
+.scroll-animate.slide-in-left.animated {
+  animation: slideInLeft 0.7s ease forwards;
+}
+
+.scroll-animate.slide-in-right {
+  animation: slideInRight 0.7s ease forwards;
+}
+
+.scroll-animate.slide-in-right.animated {
+  animation: slideInRight 0.7s ease forwards;
+}
+
+.scroll-animate.scale-in {
+  animation: scaleIn 0.6s ease forwards;
+}
+
+.scroll-animate.scale-in.animated {
+  animation: scaleIn 0.6s ease forwards;
+}
+
+.scroll-animate.bounce-in {
+  animation: bounceIn 0.7s ease forwards;
+}
+
+.scroll-animate.bounce-in.animated {
+  animation: bounceIn 0.7s ease forwards;
+}
+
+.scroll-animate.rotate-in {
+  animation: rotateIn 0.6s ease forwards;
+}
+
+.scroll-animate.rotate-in.animated {
+  animation: rotateIn 0.6s ease forwards;
+}
+
+/* Stagger animation delays for multiple elements */
+.scroll-animate:nth-child(1) { animation-delay: 0s; }
+.scroll-animate:nth-child(2) { animation-delay: 0.1s; }
+.scroll-animate:nth-child(3) { animation-delay: 0.2s; }
+.scroll-animate:nth-child(4) { animation-delay: 0.3s; }
+.scroll-animate:nth-child(5) { animation-delay: 0.4s; }
+.scroll-animate:nth-child(6) { animation-delay: 0.5s; }
 
 /* ============================================================
    RESPONSIVE
